@@ -26,11 +26,11 @@ export const AREA_NATURAL: Array<string> = [
 ];
 
 export const getAreaNatural = (index = -1) => {
-	const die = index < 0 ? index : dieN(AREA_NATURAL.length);
+	const die = index >= 0 ? index : dieN(AREA_NATURAL.length);
 	const area = AREA_NATURAL.at(die) ?? "";
 
-	if (area === "oddity-based") return `${getDetailOddity()}} ODDITY`;
-	if (area === "hazard-based") return `${getHazardNatural()}} HAZARD`;
+	if (area === "oddity-based") return `${getDetailOddity()} ODDITY`;
+	if (area === "hazard-based") return `${getHazardNatural()} HAZARD`;
 	if (area === "obstacle-based") return `${getObstacleNatural()} OBSTACLE`;
 
 	return area;

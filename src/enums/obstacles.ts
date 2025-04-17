@@ -24,8 +24,8 @@ export const OBSTACLE_NATURAL: Array<string> = [
 ];
 
 export const getObstacleNatural = (index = -1) => {
-	const die = index < 0 ? index : dieN(OBSTACLE_NATURAL.length);
-	if (die < 1) return `${getDetailOddity()}} ODDITY`;
+	const die = index >= 0 ? index : dieN(OBSTACLE_NATURAL.length);
+	if (die < 1) return `${getDetailOddity()} ODDITY`;
 
 	return OBSTACLE_NATURAL.at(die) ?? "";
 };

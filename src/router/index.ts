@@ -22,6 +22,11 @@ const router = createRouter({
       name: 'region',
       component: () => import('../views/RegionView.vue'),
     },
+    {
+      path: '/feature',
+      name: 'feature',
+      component: () => import('../components/FeatureCard.vue'),
+    },
   ],
 })
 

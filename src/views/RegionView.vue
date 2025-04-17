@@ -2,7 +2,8 @@
   <div class="region">
 
     <!-- [size], [terrain], [climate], [alignment], [safety], [other tags]. -->
-    <el-button @click="generate()">Generate Region</el-button>
+    <el-button type="primary"
+               @click="generate()">Generate Region</el-button>
     <h1 class="region__name">{{ name }}</h1>
     <div class="region__tags">
       <span>{{ size }}</span>
@@ -20,7 +21,8 @@
       <div v-for="li in regional_features"
            :key="regional_features + safety_mod + li">
 
-        <FeatureCard :safety="safety_mod" />
+        <FeatureCard :safety="safety_mod"
+                     :showButtons="false" />
       </div>
     </div>
 
@@ -29,19 +31,23 @@
       <div>
         <span class="legend__key">hazard</span>
         <br />
-        <span class="legend__definition">A potentially harmful problem that must be dealt with directly.",</span></div>
+        <span class="legend__definition">A potentially harmful problem that must be dealt with directly.",</span>
+      </div>
       <div>
         <span class="legend__key">obstacle</span>
         <br />
-        <span class="legend__definition">Any impediment to travel that must be overcome or circumnavigated.",</span></div>
+        <span class="legend__definition">Any impediment to travel that must be overcome or circumnavigated.",</span>
+      </div>
       <div>
         <span class="legend__key">area</span>
         <br />
-        <span class="legend__definition">A stretch of territory, distinguished from its parent region by some key difference.",</span></div>
+        <span class="legend__definition">A stretch of territory, distinguished from its parent region by some key difference.",</span>
+      </div>
       <div>
         <span class="legend__key">site</span>
         <br />
-        <span class="legend__definition">A notable location at a specific spot on the map determined before or during play.",</span></div>
+        <span class="legend__definition">A notable location at a specific spot on the map determined before or during play.",</span>
+      </div>
     </fieldset>
 
   </div>
@@ -67,15 +73,50 @@ const SIZES: Array<string> = [
   'expansive',
   'vast',
 ];
-const TERRAIN: Array<string> = [
-  'water',
-  'wetland',
-  'lowland',
-  'woodland',
-  'highland',
-  'wasteland',
-  'underland',
-];
+const TERRAIN: Record<string, Array<string>> = {
+  frigid: [
+    'volcanic highland ',
+    'mountains/glacier ',
+    'mountains/glacier',
+    'highland/hills',
+    'highland/hills',
+    'hilly boreal forest/taiga',
+    'hilly boreal forest/taiga',
+    'tundra/steppe/wasteland',
+    'tundra/steppe/wasteland',
+    'tundra/steppe/wasteland',
+    'boreal forest/taiga',
+    'boreal forest/taiga',
+  ],
+  temperate: [
+    'volcanic highland',
+    'mountains/glacier',
+    'mountains',
+    'highland/hills',
+    'highland/hills',
+    'hilly forest',
+    'woodland/forest',
+    'woodland/forest',
+    'woodland/forest',
+    'wetland/marsh/swamp',
+    'lowland/plains/prairie',
+    'lowland/plains/prairie',
+  ],
+  torrid: [
+    'volcanic highland',
+    'mountains',
+    'mountains',
+    'highland/hills/dunes',
+    'highland/hills/dunes',
+    'hilly jungle/rainforest',
+    'jungle/rainforest',
+    'jungle/rainforest',
+    'wetland/marsh/swamp',
+    'lowland/desert/flats',
+    'lowland/desert/flats',
+    'lowland/desert/flats',
+  ]
+}
 const CLIMATE: Array<string> = [
   'frigid',
   'temperate',
@@ -116,7 +157,6 @@ const OTHER_TAGS: Array<string> = [
   'resource (type)',
   'unholy (deity)',
 ];
-
 const NAME_TEMPLATE: Array<string> = [
   '(The) [adjective] [terrain]',
   '(The) [adjective] [terrain]',
@@ -287,7 +327,6 @@ const NAME_NOUN: Array<string> = [
   'King ',
   'Witch',
 ];
-
 const REGION_ALIGNMENT_MODIFIER: Record<string, number> = {
   good: -3,
   lawful: -5,
@@ -295,27 +334,12 @@ const REGION_ALIGNMENT_MODIFIER: Record<string, number> = {
   chaotic: 5,
   evil: 3,
 }
-
 const REGION_SAFETY_MODIFIER: Record<string, number> = {
   safe: 3,
   unsafe: 2,
-  dangerous:1,
+  dangerous: 1,
   perilous: 0,
 }
-
-// volcanic highland volcanic highland volcanic highland
-// mountains/glacier mountains/glacier mountains
-// mountains/glacier mountains mountains
-// highland/hills highland/hills highland/hills/dunes
-// highland/hills highland/hills highland/hills/dunes
-// hilly boreal forest/taiga hilly forest hilly jungle/rainforest
-// hilly boreal forest/taiga woodland/forest jungle/rainforest
-// tundra/steppe/wasteland woodland/forest jungle/rainforest
-// tundra/steppe/wasteland woodland/forest wetland/marsh/swamp
-// tundra / steppe / wasteland wetland/marsh/swamp lowland/desert/flats
-// boreal forest/taiga lowland/plains/prairie lowland/desert/flats
-// bor v bceal forest/taiga lowland/plains/prairie lowland/desert/flats
-
 
 const size: Ref<string> = ref('');
 const terrain: Ref<string> = ref('');
@@ -343,7 +367,7 @@ const getRegionalFeatureCount = (size: string) => {
   if (size === "small") return dieN(4) + 1;
   if (size === "sizable") return 2 * (1 + dieN(6));
   if (size === 'expansive') return 4 * (1 + dieN(10));
-  if (size === 'vast') return 5* (1 + dieN(12));
+  if (size === 'vast') return 5 * (1 + dieN(12));
 
   // if (size === 'large')
   return 3 * (1 + dieN(8));
@@ -353,8 +377,8 @@ const generate = () => {
   size.value = SIZES.at(dieN(SIZES.length)) ?? "";
   regional_features.value = getRegionalFeatureCount(size.value);
 
-  terrain.value = TERRAIN.at(dieN(TERRAIN.length)) ?? "";
   climate.value = CLIMATE.at(dieN(CLIMATE.length)) ?? "";
+  terrain.value = TERRAIN[climate.value].at(dieN(TERRAIN[climate.value].length)) ?? "";
   alignment.value = ALIGNMENT.at(dieN(ALIGNMENT.length)) ?? "";
 
   safety.value = getRegionSafety(alignment.value) ?? "";
@@ -366,7 +390,7 @@ const generate = () => {
   }
   other_tags.value = tags;
 
-	const template = NAME_TEMPLATE.at(dieN(NAME_TEMPLATE.length)) ?? NAME_TEMPLATE[0];
+  const template = NAME_TEMPLATE.at(dieN(NAME_TEMPLATE.length)) ?? NAME_TEMPLATE[0];
   const name_terrain = NAME_TERRAIN.at(dieN(NAME_TERRAIN.length)) ?? "";
   const name_adjective = NAME_ADJECTIVE.at(dieN(NAME_ADJECTIVE.length)) ?? "";
   const name_noun = NAME_NOUN.at(dieN(NAME_NOUN.length)) ?? "";
@@ -419,10 +443,10 @@ onMounted(() => generate());
 
     legend {
       padding-inline: 1em;
-        color: white;
-        font-weight: 700;
-        text-transform: uppercase;
-        font-size: 0.8em;
+      color: white;
+      font-weight: 700;
+      text-transform: uppercase;
+      font-size: 0.8em;
 
     }
 
@@ -435,5 +459,4 @@ onMounted(() => generate());
     }
   }
 }
-
 </style>
