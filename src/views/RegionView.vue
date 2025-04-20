@@ -16,330 +16,38 @@
             :key="tag">{{ tag }}</span>
     </div>
 
-    <span>Features: {{ regional_features }}</span>
+    <!-- <span>Features: {{ regional_features }}</span> -->
     <div class="region__features">
       <div v-for="li in regional_features"
            :key="regional_features + safety_mod + li">
 
         <FeatureCard :safety="safety_mod"
-                     :showButtons="false" />
+                     :showMenu="false" />
       </div>
     </div>
 
-    <fieldset class="region__features-legend">
-      <legend>LEGEND</legend>
-      <div>
-        <span class="legend__key">hazard</span>
-        <br />
-        <span class="legend__definition">A potentially harmful problem that must be dealt with directly.",</span>
-      </div>
-      <div>
-        <span class="legend__key">obstacle</span>
-        <br />
-        <span class="legend__definition">Any impediment to travel that must be overcome or circumnavigated.",</span>
-      </div>
-      <div>
-        <span class="legend__key">area</span>
-        <br />
-        <span class="legend__definition">A stretch of territory, distinguished from its parent region by some key difference.",</span>
-      </div>
-      <div>
-        <span class="legend__key">site</span>
-        <br />
-        <span class="legend__definition">A notable location at a specific spot on the map determined before or during play.",</span>
-      </div>
-    </fieldset>
-
+    <FeatureLegend />
   </div>
 </template>
 
 <script setup lang="ts">
 import { dieN } from '@/composables/dice'
 import FeatureCard from '../components/FeatureCard.vue';
+import FeatureLegend from '../components/FeatureLegend.vue';
 import { ElButton } from 'element-plus'
 import { onMounted, ref, type Ref } from 'vue'
-
-const SIZES: Array<string> = [
-  'small',
-  'sizable',
-  'sizable',
-  'sizable',
-  'large',
-  'large',
-  'large',
-  'large',
-  'large',
-  'expansive',
-  'expansive',
-  'vast',
-];
-const TERRAIN: Record<string, Array<string>> = {
-  frigid: [
-    'volcanic highland ',
-    'mountains/glacier ',
-    'mountains/glacier',
-    'highland/hills',
-    'highland/hills',
-    'hilly boreal forest/taiga',
-    'hilly boreal forest/taiga',
-    'tundra/steppe/wasteland',
-    'tundra/steppe/wasteland',
-    'tundra/steppe/wasteland',
-    'boreal forest/taiga',
-    'boreal forest/taiga',
-  ],
-  temperate: [
-    'volcanic highland',
-    'mountains/glacier',
-    'mountains',
-    'highland/hills',
-    'highland/hills',
-    'hilly forest',
-    'woodland/forest',
-    'woodland/forest',
-    'woodland/forest',
-    'wetland/marsh/swamp',
-    'lowland/plains/prairie',
-    'lowland/plains/prairie',
-  ],
-  torrid: [
-    'volcanic highland',
-    'mountains',
-    'mountains',
-    'highland/hills/dunes',
-    'highland/hills/dunes',
-    'hilly jungle/rainforest',
-    'jungle/rainforest',
-    'jungle/rainforest',
-    'wetland/marsh/swamp',
-    'lowland/desert/flats',
-    'lowland/desert/flats',
-    'lowland/desert/flats',
-  ]
-}
-const CLIMATE: Array<string> = [
-  'frigid',
-  'temperate',
-  'temperate',
-  'temperate',
-  'temperate',
-  'torrid',
-  'torrid',
-  'temperate',
-  'temperate',
-  'temperate',
-  'temperate',
-  'frigid',
-]
-const ALIGNMENT: Array<string> = ['good', 'lawful', 'neutral', 'chaotic', 'evil']
-const SAFETY: Array<string> = [
-  'safe',
-  'unsafe',
-  'unsafe',
-  'dangerous',
-  'dangerous',
-  'dangerous',
-  'dangerous',
-  'dangerous',
-  'dangerous',
-  'perilous'
-];
-const OTHER_TAGS: Array<string> = [
-  'barren',
-  'blighted',
-  'civilized',
-  'disputed (claimant 1/claimant 2)',
-  'defensible',
-  'difficult',
-  'enchanted',
-  'holy (deity)',
-  'property (faction or individual)',
-  'resource (type)',
-  'unholy (deity)',
-];
-const NAME_TEMPLATE: Array<string> = [
-  '(The) [adjective] [terrain]',
-  '(The) [adjective] [terrain]',
-  '(The) [adjective] [terrain]',
-  '(The) [adjective] [terrain]',
-  '[terrain] of (the) [noun] ',
-  '[terrain] of (the) [noun] ',
-  '[terrain] of (the) [noun] ',
-  'The [terrain] [adjective] ',
-  '(The) [noun] [terrain]',
-  '(The) [noun] [terrain]',
-  '(The) [noun]’s [adjective] [terrain]',
-  '[adjective] [terrain] of (the) [noun]',
-];
-const NAME_TERRAIN: Array<string> = [
-  'Bay',
-  'Morass',
-  'Bluffs',
-  'Mounds',
-  'Bog',
-  'Mountains',
-  'Cliffs',
-  'Peaks',
-  'Desert',
-  'Plains',
-  'Downs',
-  'Prairie',
-  'Dunes',
-  'Quagmire',
-  'Expanse',
-  'Range',
-  'Fells',
-  'Reach',
-  'Fen',
-  'Sands',
-  'Flats',
-  'Savanna',
-  'Foothills',
-  'Scarps',
-  'Forest',
-  'Sea',
-  'Groves',
-  'Slough',
-  'Heath',
-  'Sound',
-  'Heights',
-  'Steppe',
-  'Hills',
-  'Swamp',
-  'Hollows',
-  'Sweep',
-  'Jungle',
-  'Teeth',
-  'Lake',
-  'Thicket',
-  'Lowland',
-  'Upland',
-  'March',
-  'Wall',
-  'Marsh',
-  'Waste',
-  'Meadows',
-  'Wasteland',
-  'Moor',
-  'Woods',
-];
-const NAME_ADJECTIVE: Array<string> = [
-  'Ageless',
-  'Forgotten',
-  'Ashen',
-  'Forsaken',
-  'Black',
-  'Frozen',
-  'Blessed',
-  'Glittering',
-  'Blighted',
-  'Golden',
-  'Blue',
-  'Green',
-  'Broken',
-  'Grim',
-  'Burning',
-  'Holy',
-  'Cold',
-  'Impassable',
-  'Cursed',
-  'Jagged',
-  'Dark',
-  'Light',
-  'Dead',
-  'Long',
-  'Deadly',
-  'Misty',
-  'Deep',
-  'Perilous',
-  'Desolate',
-  'Purple',
-  'Diamond',
-  'Red',
-  'Dim',
-  'Savage',
-  'Dismal',
-  'Shadowy',
-  'Dun',
-  'Shattered',
-  'Eerie',
-  'Shifting',
-  'Endless',
-  'Shining',
-  'Fallen',
-  'Silver',
-  'Far',
-  'White',
-  'Fell',
-  'Wicked',
-  'Flaming',
-  'Yellow',
-]
-const NAME_NOUN: Array<string> = [
-  '[Name]* ',
-  'Life',
-  'Ash ',
-  'Light',
-  'Bone ',
-  'Lord',
-  'Darkness ',
-  'Mist',
-  'Dead ',
-  'Peril',
-  'Death ',
-  'Queen',
-  'Desolation ',
-  'Rain',
-  'Despair ',
-  'Refuge',
-  'Devil ',
-  'Regret',
-  'Doom ',
-  'Savior',
-  'Dragon ',
-  'Shadow',
-  'Fate ',
-  'Silver',
-  'Fear ',
-  'Skull',
-  'Fire ',
-  'Sky',
-  'Fury ',
-  'Smoke',
-  'Ghost ',
-  'Snake',
-  'Giant ',
-  'Sorrow',
-  'God ',
-  'Storm',
-  'Gold ',
-  'Sun',
-  'Heaven ',
-  'Thorn',
-  'Hell ',
-  'Thunder',
-  'Honor ',
-  'Traitor',
-  'Hope ',
-  'Troll',
-  'Horror ',
-  'Victory',
-  'King ',
-  'Witch',
-];
-const REGION_ALIGNMENT_MODIFIER: Record<string, number> = {
-  good: -3,
-  lawful: -5,
-  neutral: 0,
-  chaotic: 5,
-  evil: 3,
-}
-const REGION_SAFETY_MODIFIER: Record<string, number> = {
-  safe: 3,
-  unsafe: 2,
-  dangerous: 1,
-  perilous: 0,
-}
+import {
+  getRegionalFeatureCount,
+  getRegionAlignment,
+  getRegionClimate,
+  getRegionName,
+  getRegionOtherTags,
+  getRegionSafety,
+  getRegionSize,
+  getRegionTerrain,
+  type RegionAlignment,
+  type RegionClimate
+} from '@/enums/regions';
 
 const size: Ref<string> = ref('');
 const terrain: Ref<string> = ref('');
@@ -354,49 +62,21 @@ const regional_features: Ref<number> = ref(0);
 
 const name: Ref<string> = ref('');
 
-const getRegionSafety = (alignment: string) => {
-  const safetyIndex = dieN(SAFETY.length) + REGION_ALIGNMENT_MODIFIER[alignment];
-
-  if (safetyIndex < 1) return SAFETY.at(0)
-  if (safetyIndex >= SAFETY.length - 1) return SAFETY.at(-1);
-
-  return SAFETY.at(safetyIndex)
-}
-
-const getRegionalFeatureCount = (size: string) => {
-  if (size === "small") return dieN(4) + 1;
-  if (size === "sizable") return 2 * (1 + dieN(6));
-  if (size === 'expansive') return 4 * (1 + dieN(10));
-  if (size === 'vast') return 5 * (1 + dieN(12));
-
-  // if (size === 'large')
-  return 3 * (1 + dieN(8));
-}
-
 const generate = () => {
-  size.value = SIZES.at(dieN(SIZES.length)) ?? "";
+  size.value = getRegionSize();
   regional_features.value = getRegionalFeatureCount(size.value);
 
-  climate.value = CLIMATE.at(dieN(CLIMATE.length)) ?? "";
-  terrain.value = TERRAIN[climate.value].at(dieN(TERRAIN[climate.value].length)) ?? "";
-  alignment.value = ALIGNMENT.at(dieN(ALIGNMENT.length)) ?? "";
+  climate.value = getRegionClimate();
+  terrain.value = getRegionTerrain(climate.value as RegionClimate);
+  alignment.value = getRegionAlignment();
 
-  safety.value = getRegionSafety(alignment.value) ?? "";
-  safety_mod.value = REGION_SAFETY_MODIFIER[safety.value];
+  const [safe, mod] = getRegionSafety(alignment.value as RegionAlignment);
+  safety.value = safe;
+  safety_mod.value = mod;
 
-  const tags = [];
-  for (let t = 0; t <= dieN(3); t++) {
-    tags.push(OTHER_TAGS.at(dieN(OTHER_TAGS.length)) ?? "");
-  }
-  other_tags.value = tags;
+  other_tags.value = getRegionOtherTags(dieN(3));
 
-  const template = NAME_TEMPLATE.at(dieN(NAME_TEMPLATE.length)) ?? NAME_TEMPLATE[0];
-  const name_terrain = NAME_TERRAIN.at(dieN(NAME_TERRAIN.length)) ?? "";
-  const name_adjective = NAME_ADJECTIVE.at(dieN(NAME_ADJECTIVE.length)) ?? "";
-  const name_noun = NAME_NOUN.at(dieN(NAME_NOUN.length)) ?? "";
-
-  name.value = template.replace("[terrain]", name_terrain).replace("[adjective]", name_adjective).replace("[noun]", name_noun);
-
+  name.value = getRegionName()
 }
 
 onMounted(() => generate());
@@ -414,8 +94,8 @@ onMounted(() => generate());
   }
 
   &__tags {
-    span + span {
-      &::before {
+    span:has(+ span) {
+      &::after {
         content: ", ";
       }
     }
@@ -431,32 +111,6 @@ onMounted(() => generate());
   &__features {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-  }
-
-  &__features-legend {
-    border: 2px solid white;
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 1em;
-    padding: 1em;
-    margin-block: 1em;
-
-    legend {
-      padding-inline: 1em;
-      color: white;
-      font-weight: 700;
-      text-transform: uppercase;
-      font-size: 0.8em;
-
-    }
-
-    .legend {
-      &__key {
-        color: white;
-        font-weight: 700;
-        text-transform: uppercase;
-      }
-    }
   }
 }
 </style>

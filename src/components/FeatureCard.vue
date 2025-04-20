@@ -1,16 +1,20 @@
 <template>
   <div class="feature">
 
-    <el-button-group v-if="props.showButtons">
-      <el-button type="success"
-                 @click="generate(3)">Generate Safe</el-button>
-      <el-button type="primary"
-                 @click="generate(2)">Unsafe</el-button>
-      <el-button type="warning"
-                 @click="generate(1)">Dangerous</el-button>
-      <el-button type="danger"
-                 @click="generate(0)">Perilous</el-button>
-    </el-button-group>
+    <div v-if="props.showMenu">
+      <el-button-group>
+        <el-button type="success"
+                   @click="generate(3)">Generate Safe</el-button>
+        <el-button type="primary"
+                   @click="generate(2)">Unsafe</el-button>
+        <el-button type="warning"
+                   @click="generate(1)">Dangerous</el-button>
+        <el-button type="danger"
+                   @click="generate(0)">Perilous</el-button>
+      </el-button-group>
+      <br />
+      <br />
+    </div>
 
     <h3 class="feature__category">{{ category }}</h3>
     <!-- <span class="feature__description">{{ description }}</span> -->
@@ -36,7 +40,7 @@ const props = defineProps({
     type: Number,
     required: true
   },
-  showButtons: {
+  showMenu: {
     type: Boolean,
     required: false,
     default: true
@@ -96,8 +100,7 @@ const generate = (safety: number) => {
       feature.value = feat ?? "";
       break;
     }
-    default:
-    case 12: {
+    default: {
       category.value = 'faction presence';
       const [subcat, feat] = generateFactionPresence(subcategoryN, featureN);
       subcategory.value = subcat ?? "";

@@ -11,7 +11,6 @@ export const SITE_LAIR: Array<string> = [
 	"hovel/hut/encampment",
 	"farmstead/homestead",
 ];
-
 export const SITE_RUIN: Array<string> = [
   "tomb/crypt/necropolis",
   "tomb/crypt/necropolis",
@@ -22,7 +21,6 @@ export const SITE_RUIN: Array<string> = [
   "ancient OUTPOST",
   "ancient SETTLEMENT",
 ];
-
 export const SITE_OUTPOST: Array<string> = [
   "planar/magical",
   "FACTION outpost",
@@ -33,7 +31,6 @@ export const SITE_OUTPOST: Array<string> = [
   "tower/fort/base",
   "tower/fort/base",
 ];
-
 export const SITE_LANDMARK: Array<string> = [
   "oddity-based",
   "plant/tree-based",
@@ -44,7 +41,6 @@ export const SITE_LANDMARK: Array<string> = [
   "megalith/obelisk/statue",
   "magical",
 ];
-
 export const SITE_RESOURCE: Array<string> = [
   "oddity-based",
   "game/hide/fur",
