@@ -58,6 +58,8 @@ const generate = (safety: number) => {
     case 3:
     case 4:
       category.value = 'creature';
+      subcategory.value = "";
+      feature.value = "";
       break;
     case 5: {
       category.value = 'hazard';

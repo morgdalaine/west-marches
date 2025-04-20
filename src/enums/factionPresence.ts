@@ -1,7 +1,4 @@
 import { dieN } from "@/composables/dice";
-import type { PLACE_TEMPLATE, PLACE_PLACE, PLACE_ADJECTIVE, PLACE_NOUN } from "./places";
-import { template } from "lodash";
-
 
 export const FACTION_TYPE: Array<string> = [
   'rebel/subversive',
