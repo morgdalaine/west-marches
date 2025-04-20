@@ -1,11 +1,10 @@
 <template>
   <div class="about">
-    <h1>References</h1>
+    <h1>Sources</h1>
     <ul>
       <li>
-        <a href="https://www.lampblackandbrimstone.com/" target="_blank"
-          >Freebooters of the Frontier</a
-        >
+        <a href="https://www.lampblackandbrimstone.com/"
+           target="_blank">Freebooters of the Frontier</a>
         by Jason Lutes
       </li>
     </ul>
@@ -18,7 +17,8 @@
     min-height: 100vh;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+
+    font-family: "Alegreya", serif;
   }
 }
 </style>
