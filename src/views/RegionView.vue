@@ -31,11 +31,11 @@
 </template>
 
 <script setup lang="ts">
-import { dieN } from '@/composables/dice'
+import { dieN } from '@/composables/dice';
 import FeatureCard from '../components/FeatureCard.vue';
 import FeatureLegend from '../components/FeatureLegend.vue';
-import { ElButton } from 'element-plus'
-import { onMounted, ref, type Ref } from 'vue'
+import { ElButton } from 'element-plus';
+import { onMounted, ref, type Ref } from 'vue';
 import {
   getRegionalFeatureCount,
   getRegionAlignment,
@@ -46,7 +46,7 @@ import {
   getRegionSize,
   getRegionTerrain,
   type RegionAlignment,
-  type RegionClimate
+  type RegionClimate,
 } from '@/enums/regions';
 
 const size: Ref<string> = ref('');
@@ -76,11 +76,10 @@ const generate = () => {
 
   other_tags.value = getRegionOtherTags(dieN(3));
 
-  name.value = getRegionName()
-}
+  name.value = getRegionName();
+};
 
 onMounted(() => generate());
-
 </script>
 
 <style scoped lang="scss">

@@ -10,8 +10,8 @@
     "test:unit": "vitest",
     "build": "vite build",
     "type-check": "vue-tsc --build",
-    "lint": "eslint . --fix",
-    "format": "prettier --write src/"
+    "lint": "biome lint --write src/",
+    "format": "biome format --write src/"
   },
   "dependencies": {
     "element-plus": "^2.9.7",

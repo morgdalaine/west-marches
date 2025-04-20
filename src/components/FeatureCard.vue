@@ -25,7 +25,7 @@
 </template>
 
 <script setup lang="ts">
-import { dieN } from '@/composables/dice'
+import { dieN } from '@/composables/dice';
 import { getArea } from '@/enums/areas';
 import { generateFactionPresence } from '@/enums/factionPresence';
 import { getHazard } from '@/enums/hazards';
@@ -33,19 +33,19 @@ import { getObstacle } from '@/enums/obstacles';
 import { generatePlaceName } from '@/enums/places';
 import { getSite } from '@/enums/sites';
 import { onMounted, ref, type Ref } from 'vue';
-import { ElButton, ElButtonGroup } from 'element-plus'
+import { ElButton, ElButtonGroup } from 'element-plus';
 
 const props = defineProps({
   safety: {
     type: Number,
-    required: true
+    required: true,
   },
   showMenu: {
     type: Boolean,
     required: false,
-    default: true
-  }
-})
+    default: true,
+  },
+});
 
 const category: Ref<string> = ref('');
 const subcategory: Ref<string> = ref('');
@@ -62,28 +62,28 @@ const generate = (safety: number) => {
     case 3:
     case 4:
       category.value = 'creature';
-      subcategory.value = "";
-      feature.value = "";
+      subcategory.value = '';
+      feature.value = '';
       break;
     case 5: {
       category.value = 'hazard';
       const [subcat, feat] = getHazard(subcategoryN, featureN);
-      subcategory.value = subcat ?? "";
-      feature.value = feat ?? "";
+      subcategory.value = subcat ?? '';
+      feature.value = feat ?? '';
       break;
     }
     case 6: {
       category.value = 'obstacle';
       const [subcat, feat] = getObstacle(subcategoryN, featureN);
-      subcategory.value = subcat ?? "";
-      feature.value = feat ?? "";
+      subcategory.value = subcat ?? '';
+      feature.value = feat ?? '';
       break;
     }
     case 7: {
       category.value = 'area';
       const [subcat, feat] = getArea(subcategoryN, featureN);
-      subcategory.value = subcat ?? "";
-      feature.value = feat ?? "";
+      subcategory.value = subcat ?? '';
+      feature.value = feat ?? '';
       break;
     }
     case 8: {
@@ -96,20 +96,20 @@ const generate = (safety: number) => {
     case 11: {
       category.value = 'site';
       const [subcat, feat] = getSite(subcategoryN, featureN);
-      subcategory.value = subcat ?? "";
-      feature.value = feat ?? "";
+      subcategory.value = subcat ?? '';
+      feature.value = feat ?? '';
       break;
     }
     default: {
       category.value = 'faction presence';
       const [subcat, feat] = generateFactionPresence(subcategoryN, featureN);
-      subcategory.value = subcat ?? "";
-      feature.value = feat ?? "";
+      subcategory.value = subcat ?? '';
+      feature.value = feat ?? '';
 
       break;
     }
   }
-}
+};
 
 onMounted(() => generate(props.safety));
 </script>

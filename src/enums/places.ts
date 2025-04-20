@@ -1,13 +1,12 @@
-import { dieN } from "@/composables/dice";
-
+import { dieN } from '@/composables/dice';
 
 export const PLACE_TEMPLATE: Array<string> = [
-  "The [place] ",
-  "The [adjective] [place] ",
-  "The [place] of (the) [noun] ",
-  "(The) [noun]’s [place]",
-  "[place] of the [adjective] [noun]",
-  "The [adjective] [noun]",
+  'The [place] ',
+  'The [adjective] [place] ',
+  'The [place] of (the) [noun] ',
+  '(The) [noun]’s [place]',
+  '[place] of the [adjective] [noun]',
+  'The [adjective] [noun]',
 ];
 export const PLACE_PLACE: Array<string> = [
   'Barrier',
@@ -112,7 +111,7 @@ export const PLACE_ADJECTIVE: Array<string> = [
   'Thundering',
   'White',
   'Withered',
-]
+];
 export const PLACE_NOUN: Array<string> = [
   '[Name]*',
   'Arm',
@@ -167,10 +166,13 @@ export const PLACE_NOUN: Array<string> = [
 ];
 
 export const generatePlaceName = () => {
-	const template = PLACE_TEMPLATE.at(dieN(PLACE_TEMPLATE.length)) ?? PLACE_TEMPLATE[0];
-  const place = PLACE_PLACE.at(dieN(PLACE_PLACE.length)) ?? "";
-  const adjective = PLACE_ADJECTIVE.at(dieN(PLACE_ADJECTIVE.length)) ?? "";
-  const noun = PLACE_NOUN.at(dieN(PLACE_NOUN.length)) ?? "";
+  const template = PLACE_TEMPLATE.at(dieN(PLACE_TEMPLATE.length)) ?? PLACE_TEMPLATE[0];
+  const place = PLACE_PLACE.at(dieN(PLACE_PLACE.length)) ?? '';
+  const adjective = PLACE_ADJECTIVE.at(dieN(PLACE_ADJECTIVE.length)) ?? '';
+  const noun = PLACE_NOUN.at(dieN(PLACE_NOUN.length)) ?? '';
 
-  return template.replace("[place]", place).replace("[adjective]", adjective).replace("[noun]", noun);
-}
+  return template
+    .replace('[place]', place)
+    .replace('[adjective]', adjective)
+    .replace('[noun]', noun);
+};

@@ -1,4 +1,4 @@
-import { dieN } from "@/composables/dice";
+import { dieN } from '@/composables/dice';
 
 export const DETAIL_ODDITY: Array<string> = [
   'bright/garish/harsh',
@@ -14,8 +14,8 @@ export const DETAIL_ODDITY: Array<string> = [
 ] as const;
 
 export const getDetailOddity = () => {
-  return DETAIL_ODDITY.at(dieN(DETAIL_ODDITY.length)) ?? "";
-}
+  return DETAIL_ODDITY.at(dieN(DETAIL_ODDITY.length)) ?? '';
+};
 
 export const DETAIL_ELEMENT: Array<string> = [
   'void',
@@ -29,9 +29,8 @@ export const DETAIL_ELEMENT: Array<string> = [
 ] as const;
 
 export const getDetailElement = () => {
-  return DETAIL_ELEMENT.at(dieN(DETAIL_ELEMENT.length)) ?? "";
-}
-
+  return DETAIL_ELEMENT.at(dieN(DETAIL_ELEMENT.length)) ?? '';
+};
 
 export const DETAIL_MAGIC_TYPE: Array<string> = [
   'necromancy',
@@ -47,5 +46,5 @@ export const DETAIL_MAGIC_TYPE: Array<string> = [
 ] as const;
 
 export const getDetailMagicType = () => {
-  return DETAIL_MAGIC_TYPE.at(dieN(DETAIL_MAGIC_TYPE.length)) ?? "";
-}
+  return DETAIL_MAGIC_TYPE.at(dieN(DETAIL_MAGIC_TYPE.length)) ?? '';
+};
