@@ -1,4 +1,4 @@
-import { dieN } from "@/composables/dice";
+import { dieN } from '@/composables/dice';
 
 export const FACTION_TYPE: Array<string> = [
   'rebel/subversive',
@@ -33,9 +33,12 @@ export const FACTION_CONDITION: Array<string> = [
 
 export const generateFactionPresence = (subcatIndex: number, featIndex: number) => {
   const types = FACTION_TYPE.length;
-  const type = subcatIndex < types ? FACTION_TYPE.at(subcatIndex) : FACTION_TYPE.at(dieN(types)) + " & " + FACTION_TYPE.at(dieN(types));
-  const goal = FACTION_GOAL.at(featIndex) ?? "";
-  const condition = FACTION_CONDITION.at(dieN(FACTION_CONDITION.length)) ?? "";
+  const type =
+    subcatIndex < types
+      ? FACTION_TYPE.at(subcatIndex)
+      : `${FACTION_TYPE.at(dieN(types))} & ${FACTION_TYPE.at(dieN(types))}`;
+  const goal = FACTION_GOAL.at(featIndex) ?? '';
+  const condition = FACTION_CONDITION.at(dieN(FACTION_CONDITION.length)) ?? '';
 
   return [`${condition} ${type}`, goal];
-}
+};
