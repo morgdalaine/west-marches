@@ -1,60 +1,49 @@
-import { dieN } from '@/composables/dice';
+import { dieN, dieWeightedRecord, type WeightedRecord } from '@/composables/dice';
 import { getDetailMagicType, getDetailElement, getDetailOddity } from '../details';
 import { getHazardNatural } from './hazards';
 import { getObstacleNatural } from './obstacles';
 
-export const AREA_UNNATURAL: string[] = [
-  'magical',
-  'magical',
-  'magical',
-  'magical',
-  'magical',
-  'magical',
-  'planar',
-  'divine',
-
-  // 'magical': 6,
-  // 'planar': 1,
-  // 'divine': 1,
-];
-
-export const AREA_NATURAL: string[] = [
-  'oddity-based',
-  'hazard-based',
-  'obstacle-based',
-  'obstacle-based',
-  'hunting/gathering ground of local CREATURE',
-  'claimed as territory by local FACTION',
-  'difficult terrain (icefield, rocky land, dense forest, etc.)',
-  'difficult terrain (icefield, rocky land, dense forest, etc.)',
-];
-
-export const getAreaNatural = (index = -1) => {
-  const die = index >= 0 ? index : dieN(AREA_NATURAL.length);
-  const area = AREA_NATURAL.at(die) ?? '';
-
-  if (area === 'oddity-based') return `${getDetailOddity()} ODDITY`;
-  if (area === 'hazard-based') return `${getHazardNatural()} HAZARD`;
-  if (area === 'obstacle-based') return `${getObstacleNatural()} OBSTACLE`;
-
-  return area;
+export const AREA_UNNATURAL: WeightedRecord = {
+  'magical': 6,
+  'planar': 1,
+  'divine': 1,
 };
 
-export const getArea = (subcatIndex: number, featIndex: number) => {
-  let subcategory = 'Natural';
+export const AREA_NATURAL: WeightedRecord = {
+  'oddity-based': 1,
+  'hazard-based': 1,
+  'obstacle-based': 2,
+  'hunting/gathering ground of local CREATURE': 1,
+  'claimed as territory by local FACTION': 1,
+  'difficult terrain (icefield, rocky land, dense forest, etc.)': 2,
+};
+
+export const getAreaNatural = () => {
+  const area = dieWeightedRecord(AREA_NATURAL);
+
+  if (area === 'oddity-based') return `ODDITY ${getDetailOddity()}`;
+  if (area === 'hazard-based') return `HAZARD ${getHazardNatural()}—expand reach`;
+  if (area === 'obstacle-based') return `OBSTACLE ${getObstacleNatural()}—expand footprint`;
+
+  return area; //.replace(/(creature|faction)/i, '<span class="small-caps">$1</span>');
+};
+
+export const getArea = () => {
+  const index = dieN(10, 1);
+  let subcategory = 'Natural Area';
+
   // unnatural
-  if (subcatIndex < 1) {
-    subcategory = 'Unnatural';
-    let feature = AREA_UNNATURAL.at(featIndex);
+  if (index === 1) {
+    let feature = dieWeightedRecord(AREA_UNNATURAL);
 
     if (feature === 'magical') {
-      subcategory += ' magical';
+      subcategory = `${feature} Area`;
       feature = `${getAreaNatural()} [${getDetailMagicType()}]`;
     } else if (feature === 'planar') {
-      subcategory += ' planar';
+      subcategory = `${feature} Area`;
       feature = `${getAreaNatural()} [${getDetailElement()}]`;
     } else if (feature === 'divine') {
-      subcategory += ' divine';
+      subcategory = `${feature} Area`;
       feature = `${getAreaNatural()} [attach diety]`;
     }
 
@@ -62,5 +51,5 @@ export const getArea = (subcatIndex: number, featIndex: number) => {
   }
 
   // natural
-  return [subcategory, getAreaNatural(featIndex)];
+  return [subcategory, getAreaNatural()];
 };

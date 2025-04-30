@@ -1,50 +1,43 @@
-import { dieN } from '@/composables/dice';
+import { dieN, dieWeightedRecord, type WeightedRecord } from '@/composables/dice';
 import { getDetailMagicType, getDetailElement, getDetailOddity } from '../details';
 
-export const OBSTACLE_UNNATURAL: string[] = [
-  'magical',
-  'magical',
-  'magical',
-  'magical',
-  'magical',
-  'magical',
-  'planar',
-  'divine',
-];
-
-export const OBSTACLE_NATURAL: string[] = [
-  'oddity-based',
-  'defensive (barrier created by local creature /faction)',
-  'impenetrable (cliff, escarpment, crag, bluff, etc.)',
-  'impenetrable (cliff, escarpment, crag, bluff, etc.)',
-  'penetrable (dense forest/jungle, etc.)',
-  'penetrable (dense forest/jungle, etc.)',
-  'traversable (river, ravine, crevasse, chasm, abyss, etc.)',
-  'traversable (river, ravine, crevasse, chasm, abyss, etc.)',
-];
-
-export const getObstacleNatural = (index = -1) => {
-  const die = index >= 0 ? index : dieN(OBSTACLE_NATURAL.length);
-  if (die < 1) return `${getDetailOddity()} ODDITY`;
-
-  return OBSTACLE_NATURAL.at(die) ?? '';
+export const OBSTACLE_UNNATURAL: WeightedRecord = {
+  'magical': 6,
+  'planar': 1,
+  'divine': 1,
 };
 
-export const getObstacle = (subcatIndex: number, featIndex: number) => {
+export const OBSTACLE_NATURAL: WeightedRecord = {
+  'oddity-based': 1,
+  'defensive (barrier created by local creature /faction)': 1,
+  'impenetrable (cliff, escarpment, crag, bluff, etc.)': 2,
+  'penetrable (dense forest/jungle, etc.)': 2,
+  'traversable (river, ravine, crevasse, chasm, abyss, etc.)': 2,
+};
+
+export const getObstacleNatural = () => {
+  const obstacle = dieWeightedRecord(OBSTACLE_NATURAL);
+  if (obstacle === 'oddity-based') return `${getDetailOddity()} ODDITY`;
+
+  return obstacle;
+};
+
+export const getObstacle = () => {
+  const index = dieN(10, 1);
   let subcategory = 'Natural';
+
   // unnatural
-  if (subcatIndex < 1) {
-    subcategory = 'Unnatural';
-    let feature = OBSTACLE_UNNATURAL.at(featIndex);
+  if (index === 1) {
+    let feature = dieWeightedRecord(OBSTACLE_UNNATURAL);
 
     if (feature === 'magical') {
-      subcategory += ' magical';
+      subcategory = `${feature} Obstacle`;
       feature = `${getObstacleNatural()} [${getDetailMagicType()}]`;
     } else if (feature === 'planar') {
-      subcategory += ' planar';
+      subcategory = `${feature} Obstacle`;
       feature = `${getObstacleNatural()} [${getDetailElement()}]`;
     } else if (feature === 'divine') {
-      subcategory += ' divine';
+      subcategory = `${feature} Obstacle`;
       feature = `${getObstacleNatural()} [attach diety]`;
     }
 
@@ -52,5 +45,5 @@ export const getObstacle = (subcatIndex: number, featIndex: number) => {
   }
 
   // natural
-  return [subcategory, getObstacleNatural(featIndex)];
+  return [subcategory, getObstacleNatural()];
 };

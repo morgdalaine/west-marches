@@ -1,16 +1,12 @@
-import { dieN } from '@/composables/dice';
+import { dieArray, dieN, dieWeightedRecord, type WeightedRecord } from '@/composables/dice';
 import { getDetailMagicType, getDetailElement, getDetailOddity } from '../details';
 
-export const HAZARD_UNNATURAL: string[] = [
-  'taint/blight/curse',
-  'taint/blight/curse',
-  'taint/blight/curse',
-  'taint/blight/curse',
-  'magical',
-  'magical',
-  'planar',
-  'divine',
-];
+export const HAZARD_UNNATURAL: WeightedRecord = {
+  'taint/blight/curse': 4,
+  'magical': 2,
+  'planar': 1,
+  'divine': 1,
+};
 
 export const HAZARD_NATURAL: string[] = [
   'oddity-based',
@@ -23,28 +19,30 @@ export const HAZARD_NATURAL: string[] = [
   'impairing (mist, fog, murk, gloom, miasma, etc.)',
 ];
 
-export const getHazardNatural = (index = -1) => {
-  const die = index >= 0 ? index : dieN(HAZARD_NATURAL.length);
-  if (die < 1) return `${getDetailOddity()} ODDITY`;
+export const getHazardNatural = () => {
+  const hazard = dieArray(HAZARD_NATURAL);
+  if (hazard === 'oddity-based') return `ODDITY ${getDetailOddity()}`;
 
-  return HAZARD_NATURAL.at(die) ?? '';
+  return hazard;
 };
 
-export const getHazard = (subcatIndex: number, featIndex: number) => {
-  let subcategory = 'Natural';
+export const getHazard = () => {
+  const index = dieN(10, 1);
+  let subcategory = 'Natural Hazard';
+
   // unnatural
-  if (subcatIndex < 1) {
-    subcategory = 'Unnatural';
-    let feature = HAZARD_UNNATURAL.at(featIndex);
+  if (index === 1) {
+    subcategory = 'Unnatural Hazard';
+    let feature = dieWeightedRecord(HAZARD_UNNATURAL);
 
     if (feature === 'magical') {
-      subcategory += ' magical';
+      subcategory = `${feature} Hazard`;
       feature = `${getHazardNatural()} [${getDetailMagicType()}]`;
     } else if (feature === 'planar') {
-      subcategory += ' planar';
+      subcategory = `${feature} Hazard`;
       feature = `${getHazardNatural()} [${getDetailElement()}]`;
     } else if (feature === 'divine') {
-      subcategory += ' divine';
+      subcategory = `${feature} Hazard`;
       feature = `${getHazardNatural()} [attach diety]`;
     }
 
@@ -52,5 +50,5 @@ export const getHazard = (subcatIndex: number, featIndex: number) => {
   }
 
   // natural
-  return [subcategory, getHazardNatural(featIndex)];
+  return [subcategory, getHazardNatural()];
 };

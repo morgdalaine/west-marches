@@ -1,4 +1,5 @@
-import { dieN } from '@/composables/dice';
+import { dieArray, dieN, dieWeightedRecord, type WeightedRecord } from '@/composables/dice';
+import { getSiteFeature, SITE_RESOURCE } from './sites';
 
 export const FACTION_TYPE: string[] = [
   'rebel/subversive',
@@ -23,22 +24,25 @@ export const FACTION_GOAL: string[] = [
   'establish/maintain trade',
 ];
 
-export const FACTION_CONDITION: string[] = [
-  'failing/shrinking',
-  'nascent/incipient',
-  'stable/sustained',
-  'successful/expanding',
-  'dominating',
-];
+export const FACTION_CONDITION: WeightedRecord = {
+  'failing/shrinking': 1,
+  'nascent/incipient': 1,
+  'stable/sustained': 2,
+  'successful/expanding': 1,
+  'dominating': 1,
+};
 
-export const generateFactionPresence = (subcatIndex: number, featIndex: number) => {
-  const types = FACTION_TYPE.length;
+export const generateFactionPresence = () => {
+  const index = dieN(10);
   const type =
-    subcatIndex < types
-      ? FACTION_TYPE.at(subcatIndex)
-      : `${FACTION_TYPE.at(dieN(types))} & ${FACTION_TYPE.at(dieN(types))}`;
-  const goal = FACTION_GOAL.at(featIndex) ?? '';
-  const condition = FACTION_CONDITION.at(dieN(FACTION_CONDITION.length)) ?? '';
+    index < FACTION_TYPE.length
+      ? dieArray(FACTION_TYPE)
+      : `${dieArray(FACTION_TYPE)} & ${dieArray(FACTION_TYPE)}`;
+  const goal = dieArray(FACTION_GOAL).replace(
+    /RESOURCE/g,
+    `<span class="small-caps">${getSiteFeature(SITE_RESOURCE)}</span>`,
+  );
+  const condition = dieWeightedRecord(FACTION_CONDITION);
 
   return [`${condition} ${type}`, goal];
 };

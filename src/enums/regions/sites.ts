@@ -1,4 +1,4 @@
-import { dieN } from '@/composables/dice';
+import { dieArray, dieN } from '@/composables/dice';
 import { getDetailMagicType, getDetailOddity } from '../details';
 
 export const SITE_LAIR: string[] = [
@@ -52,58 +52,55 @@ export const SITE_RESOURCE: string[] = [
   'magical',
 ];
 
-export const getSiteFeature = (features: string[], index = -1): string => {
-  const die = index >= 0 ? index : dieN(features.length);
-  const site = features.at(die) ?? '';
+export const getSiteFeature = (features: string[]): string => {
+  const site = dieArray(features);
 
   if (site === 'oddity-based') return `${getDetailOddity()} ODDITY`;
-  if (site === 'magical') return `${getDetailMagicType()}`;
-  if (site.includes('RUIN')) return `uninhabited ${getSiteFeature(SITE_RUIN)}`;
+  if (site === 'magical') return `${getDetailMagicType()} RESOURCE`;
+  if (site.includes('RUIN')) return `inhabited ${getSiteFeature(SITE_RUIN)}`;
   if (site.includes('OUTPOST')) return `ancient ${getSiteFeature(SITE_OUTPOST)}`;
-  if (site.includes('FACTION')) return '// TODO // SITE FACTION BASED';
 
   return site;
 };
 
-export const getSite = (subcatIndex: number, featIndex: number) => {
-  let subcategory = '';
-  let feature = '';
+export const getSite = () => {
+  const index = dieN(10, 1);
 
-  switch (subcatIndex + 1) {
+  switch (index) {
     case 1:
     case 2: {
-      subcategory = 'dungeon';
-      break;
+      const subcategory = 'dungeon';
+      return [subcategory, ''];
     }
     case 3:
     case 4: {
-      subcategory = 'lair/dwelling';
-      feature = getSiteFeature(SITE_LAIR, featIndex);
-      break;
+      const subcategory = 'lair/dwelling';
+      const feature = getSiteFeature(SITE_LAIR);
+      return [subcategory, feature];
     }
     case 5:
     case 6: {
-      subcategory = 'ruin';
-      feature = getSiteFeature(SITE_RUIN, featIndex);
-      break;
+      const subcategory = 'ruin';
+      const feature = getSiteFeature(SITE_RUIN);
+      return [subcategory, feature];
     }
     case 7: {
-      subcategory = 'outpost';
-      feature = getSiteFeature(SITE_OUTPOST, featIndex);
-      break;
+      const subcategory = 'outpost';
+      const feature = getSiteFeature(SITE_OUTPOST);
+      return [subcategory, feature];
     }
     case 8:
     case 9: {
-      subcategory = 'landmark';
-      feature = getSiteFeature(SITE_LANDMARK, featIndex);
-      break;
+      const subcategory = 'landmark';
+      const feature = getSiteFeature(SITE_LANDMARK);
+      return [subcategory, feature];
     }
     case 10: {
-      subcategory = 'resource';
-      feature = getSiteFeature(SITE_RESOURCE, featIndex);
-      break;
+      const subcategory = 'resource';
+      const feature = getSiteFeature(SITE_RESOURCE);
+      return [subcategory, feature];
     }
   }
 
-  return [subcategory, feature];
+  return ['', ''];
 };

@@ -113,14 +113,18 @@ onMounted(() => generateRegion());
   &__climate {
     &--frigid {
       color: lightblue;
+      font-weight: 500;
     }
     &--torrid {
       color: orange;
+      font-weight: 500;
     }
   }
   &__features {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+    margin: 1rem 0;
   }
 }
 </style>

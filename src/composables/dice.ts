@@ -1,4 +1,4 @@
-export const dieN = (sides: number) => Math.floor(Math.random() * sides);
+export const dieN = (sides: number, base = 0) => Math.floor(Math.random() * sides) + base;
 export const die6 = () => dieN(6);
 
 export type WeightedRecord = Record<string, number>;
@@ -15,6 +15,10 @@ export class Die66 {
     return `(${this.die1}, ${this.die2})`;
   }
 }
+
+export const arrayAtBounded = (array: string[], index: number): string => {
+  return array.at(index) ?? array[array.length - 1];
+};
 
 /**
  * Returns a random value from an Array of strings

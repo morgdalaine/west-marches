@@ -1,4 +1,4 @@
-import { dieN } from '@/composables/dice';
+import { dieArray } from '@/composables/dice';
 
 export const PLACE_TEMPLATE: string[] = [
   'The [place] ',
@@ -166,13 +166,13 @@ export const PLACE_NOUN: string[] = [
 ];
 
 export const generatePlaceName = () => {
-  const template = PLACE_TEMPLATE.at(dieN(PLACE_TEMPLATE.length)) ?? PLACE_TEMPLATE[0];
-  const place = PLACE_PLACE.at(dieN(PLACE_PLACE.length)) ?? '';
-  const adjective = PLACE_ADJECTIVE.at(dieN(PLACE_ADJECTIVE.length)) ?? '';
-  const noun = PLACE_NOUN.at(dieN(PLACE_NOUN.length)) ?? '';
+  const template = dieArray(PLACE_TEMPLATE);
+  const place = dieArray(PLACE_PLACE);
+  const adjective = dieArray(PLACE_ADJECTIVE);
+  const noun = dieArray(PLACE_NOUN);
 
   return template
-    .replace('[place]', place)
-    .replace('[adjective]', adjective)
-    .replace('[noun]', noun);
+    .replace('[place]', `<span class="small-caps">${place}</span>`)
+    .replace('[adjective]', `<span class="small-caps">${adjective}</span>`)
+    .replace('[noun]', `<span class="small-caps">${noun}</span>`);
 };
