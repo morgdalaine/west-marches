@@ -22,9 +22,14 @@ const router = createRouter({
       component: () => import('../views/FeatureView.vue'),
     },
     {
-      path: '/Discovery',
+      path: '/discovery',
       name: 'Discovery',
       component: () => import('../views/DiscoveryView.vue'),
+    },
+    {
+      path: '/incident',
+      name: 'incident',
+      component: () => import('../views/IncidentView.vue'),
     },
   ],
 });

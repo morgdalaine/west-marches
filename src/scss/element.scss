@@ -9,12 +9,16 @@
   span {
     font-family: "Alegreya", serif;
     font-weight: 700;
+    text-transform: capitalize;
   }
 }
 
 .el-button-group {
-  > .el-button:not(:last-child) {
-    margin-right: 2px;
+  > .el-button{
+    margin-bottom: 2px;
+    &:not(:last-child) {
+      margin-right: 2px;
+    }
   }
 
   .el-button {

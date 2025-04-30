@@ -283,3 +283,5 @@ export const getDiscovery = () => {
 
   return [category];
 };
+
+export const getDiscoverySinglet = () => {};

@@ -59,3 +59,9 @@ export const weightedRandomIndex = (weights: number[]) => {
     return random <= 0;
   });
 };
+
+export const weightedRecordToArray = (data: WeightedRecord): string[] => {
+  return Object.entries(data)
+    .flatMap(([key, val]) => `${key}|`.repeat(val).split('|'))
+    .filter((x: string) => x);
+};
