@@ -50,7 +50,7 @@ export const DISCOVERY_CATEGORY: WeightedRecord = {
   [DiscoveryEnum.UNNATURAL_FEATURE]: 2,
   [DiscoveryEnum.NATURAL_FEATURE]: 10,
   [DiscoveryEnum.EVIDENCE]: 4,
-  [DiscoveryEnum.STRUCTURE]: 44444,
+  [DiscoveryEnum.STRUCTURE]: 4,
 };
 export const FEATURE_UNNATURAL: WeightedRecord = {
   [FeatureUnnaturalEnum.DIVINE]: 1,
