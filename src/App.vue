@@ -1,20 +1,24 @@
-<script setup lang="ts">
-import { RouterLink, RouterView } from 'vue-router';
-</script>
-
 <template>
   <header>
     <div class="wrapper">
       <nav>
         <RouterLink to="/">Region</RouterLink>
         <RouterLink to="/feature">Feature</RouterLink>
+        <RouterLink to="/discovery">Discovery</RouterLink>
         <RouterLink to="/about">About</RouterLink>
       </nav>
+
     </div>
   </header>
 
   <RouterView />
+  <LegendComponent />
 </template>
+
+<script setup lang="ts">
+import { RouterLink, RouterView } from 'vue-router';
+import LegendComponent from '@/components/LegendComponent.vue';
+</script>
 
 <style scoped>
 nav {

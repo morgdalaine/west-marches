@@ -19,7 +19,12 @@ const router = createRouter({
     {
       path: '/feature',
       name: 'feature',
-      component: () => import('../components/FeatureCard.vue'),
+      component: () => import('../views/FeatureView.vue'),
+    },
+    {
+      path: '/Discovery',
+      name: 'Discovery',
+      component: () => import('../views/DiscoveryView.vue'),
     },
   ],
 });

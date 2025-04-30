@@ -1,5 +1,5 @@
 import { dieN } from '@/composables/dice';
-import { getDetailMagicType, getDetailOddity } from './details';
+import { getDetailMagicType, getDetailOddity } from '../details';
 
 export const SITE_LAIR: string[] = [
   'inhabited RUIN',

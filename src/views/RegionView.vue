@@ -3,8 +3,9 @@
 
     <!-- [size], [terrain], [climate], [alignment], [safety], [other tags]. -->
     <el-button type="primary"
-               @click="generate()">Generate Region</el-button>
-    <h1 class="region__name">{{ name }}</h1>
+               @click="generateRegion()">Generate Region</el-button>
+    <h1 class="region__name"
+        @click="cycleRegionName()">{{ name }}</h1>
     <div class="region__tags">
       <span>{{ size }}</span>
       <span>{{ terrain }}</span>
@@ -22,33 +23,30 @@
       <div v-for="li in regional_features"
            :key="regional_features + safety_mod + li">
 
-        <FeatureCard :safety="safety_mod"
-                     :showMenu="false" />
+        <FeatureCard :safety="safety_mod" />
       </div>
     </div>
 
-    <FeatureLegend />
   </div>
 </template>
 
 <script setup lang="ts">
 import { dieN } from '@/composables/dice';
-import FeatureCard from '../components/FeatureCard.vue';
-import FeatureLegend from '../components/FeatureLegend.vue';
+import FeatureCard from '@/components/FeatureCard.vue';
 import { ElButton } from 'element-plus';
-import { onMounted, ref, type Ref } from 'vue';
+import { computed, onMounted, ref, type Ref } from 'vue';
 import {
   getRegionalFeatureCount,
   getRegionAlignment,
   getRegionClimate,
-  getRegionName,
+  getRegionNameAll,
   getRegionOtherTags,
   getRegionSafety,
   getRegionSize,
   getRegionTerrain,
   type RegionAlignment,
   type RegionClimate,
-} from '@/enums/regions';
+} from '@/enums/regions/regions';
 
 const size: Ref<string> = ref('');
 const terrain: Ref<string> = ref('');
@@ -61,9 +59,11 @@ const other_tags: Ref<string[]> = ref([]);
 const safety_mod: Ref<number> = ref(0);
 const regional_features: Ref<number> = ref(0);
 
-const name: Ref<string> = ref('');
+const nameIndex: Ref<number> = ref(0);
+const names: Ref<string[]> = ref([]);
+const name = computed(() => names.value[nameIndex.value])
 
-const generate = () => {
+const generateRegion = () => {
   size.value = getRegionSize();
   regional_features.value = getRegionalFeatureCount(size.value);
 
@@ -77,10 +77,20 @@ const generate = () => {
 
   other_tags.value = getRegionOtherTags(dieN(3));
 
-  name.value = getRegionName();
+  names.value = getRegionNameAll();
+  nameIndex.value = dieN(names.value.length)
 };
 
-onMounted(() => generate());
+const cycleRegionName = () => {
+  if (nameIndex.value + 1 >= names.value.length) {
+    nameIndex.value = 0;
+  }
+  else {
+    nameIndex.value++
+  }
+}
+
+onMounted(() => generateRegion());
 </script>
 
 <style scoped lang="scss">

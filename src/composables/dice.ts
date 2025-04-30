@@ -30,14 +30,16 @@ export const dieArray = (array: string[]): string => {
  * @param data `Record<string, number>` weighted string record
  * @returns string
  */
-export const dieWeightedRecord = (data: WeightedRecord) => {
+export const dieWeightedRecord = (data: WeightedRecord): string => {
   const weights = Object.values(data);
   const totalWeight = weights.reduce((memo, val) => memo + val, 0);
   let random = Math.floor(Math.random() * totalWeight);
-  return Object.keys(data).find((_, i) => {
-    random = random - weights[i];
-    return random <= 0;
-  });
+  return (
+    Object.keys(data).find((_, i) => {
+      random = random - weights[i];
+      return random <= 0;
+    }) ?? Object.keys(data)[0]
+  );
 };
 
 /**

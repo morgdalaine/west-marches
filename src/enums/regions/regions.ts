@@ -1,5 +1,5 @@
-import { dieArray, dieN } from '@/composables/dice';
-import type { ObjectValues } from './enums';
+import { dieArray, dieN, dieWeightedRecord, type WeightedRecord } from '@/composables/dice';
+import type { ObjectValues } from '../enums';
 
 export const RegionClimateEnum = {
   FRIGID: 'frigid',
@@ -41,8 +41,8 @@ export const REGION_SIZES: string[] = [
 ];
 export const REGION_TERRAIN: Record<RegionClimate, string[]> = {
   [RegionClimateEnum.FRIGID]: [
-    'volcanic highland ',
-    'mountains/glacier ',
+    'volcanic highland',
+    'mountains/glacier',
     'mountains/glacier',
     'highland/hills',
     'highland/hills',
@@ -129,20 +129,14 @@ export const REGION_OTHER_TAGS: string[] = [
   'resource (type)',
   'unholy (deity)',
 ];
-export const REGION_NAME_TEMPLATE: string[] = [
-  '(The) [adjective] [terrain]',
-  '(The) [adjective] [terrain]',
-  '(The) [adjective] [terrain]',
-  '(The) [adjective] [terrain]',
-  '[terrain] of (the) [noun] ',
-  '[terrain] of (the) [noun] ',
-  '[terrain] of (the) [noun] ',
-  'The [terrain] [adjective] ',
-  '(The) [noun] [terrain]',
-  '(The) [noun] [terrain]',
-  "(The) [noun]'s [adjective] [terrain]",
-  '[adjective] [terrain] of (the) [noun]',
-];
+export const REGION_NAME_TEMPLATE: WeightedRecord = {
+  '(The) [adjective] [terrain]': 4,
+  '[terrain] of (the) [noun]': 3,
+  'The [terrain] [adjective]': 1,
+  '(The) [noun] [terrain]': 2,
+  "(The) [noun]'s [adjective] [terrain]": 1,
+  '[adjective] [terrain] of (the) [noun]': 1,
+};
 export const REGION_NAME_TERRAIN: string[] = [
   'Bay',
   'Morass',
@@ -248,55 +242,55 @@ export const REGION_NAME_ADJECTIVE: string[] = [
   'Yellow',
 ];
 export const REGION_NAME_NOUN: string[] = [
-  '[Name]* ',
+  '[Name]*',
   'Life',
-  'Ash ',
+  'Ash',
   'Light',
-  'Bone ',
+  'Bone',
   'Lord',
-  'Darkness ',
+  'Darkness',
   'Mist',
-  'Dead ',
+  'Dead',
   'Peril',
-  'Death ',
+  'Death',
   'Queen',
-  'Desolation ',
+  'Desolation',
   'Rain',
-  'Despair ',
+  'Despair',
   'Refuge',
-  'Devil ',
+  'Devil',
   'Regret',
-  'Doom ',
+  'Doom',
   'Savior',
-  'Dragon ',
+  'Dragon',
   'Shadow',
-  'Fate ',
+  'Fate',
   'Silver',
-  'Fear ',
+  'Fear',
   'Skull',
-  'Fire ',
+  'Fire',
   'Sky',
-  'Fury ',
+  'Fury',
   'Smoke',
-  'Ghost ',
+  'Ghost',
   'Snake',
-  'Giant ',
+  'Giant',
   'Sorrow',
-  'God ',
+  'God',
   'Storm',
-  'Gold ',
+  'Gold',
   'Sun',
-  'Heaven ',
+  'Heaven',
   'Thorn',
-  'Hell ',
+  'Hell',
   'Thunder',
-  'Honor ',
+  'Honor',
   'Traitor',
-  'Hope ',
+  'Hope',
   'Troll',
-  'Horror ',
+  'Horror',
   'Victory',
-  'King ',
+  'King',
   'Witch',
 ];
 export const REGION_ALIGNMENT_MODIFIER: Record<RegionAlignment, number> = {
@@ -350,13 +344,26 @@ export const getRegionOtherTags = (count: number) => {
 };
 
 export const getRegionName = () => {
-  const template = dieArray(REGION_NAME_TEMPLATE);
-  const name_terrain = dieArray(REGION_NAME_TERRAIN);
-  const name_adjective = dieArray(REGION_NAME_ADJECTIVE);
-  const name_noun = dieArray(REGION_NAME_NOUN);
+  const template = dieWeightedRecord(REGION_NAME_TEMPLATE);
+  const terrain = dieArray(REGION_NAME_TERRAIN);
+  const adjective = dieArray(REGION_NAME_ADJECTIVE);
+  const noun = dieArray(REGION_NAME_NOUN);
 
   return template
-    .replace('[terrain]', name_terrain)
-    .replace('[adjective]', name_adjective)
-    .replace('[noun]', name_noun);
+    .replace('[terrain]', terrain)
+    .replace('[adjective]', adjective)
+    .replace('[noun]', noun);
+};
+
+export const getRegionNameAll = () => {
+  const terrain = dieArray(REGION_NAME_TERRAIN);
+  const adjective = dieArray(REGION_NAME_ADJECTIVE);
+  const noun = dieArray(REGION_NAME_NOUN);
+
+  return Object.keys(REGION_NAME_TEMPLATE).map((template) =>
+    template
+      .replace('[terrain]', terrain)
+      .replace('[adjective]', adjective)
+      .replace('[noun]', noun),
+  );
 };

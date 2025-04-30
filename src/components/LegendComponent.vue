@@ -30,6 +30,8 @@
 
 <style scoped lang="scss">
 .legend {
+  font-family: "Alegreya", serif;
+
   border: 2px solid white;
   display: grid;
   grid-template-columns: repeat(2, 1fr);

@@ -1,22 +1,5 @@
 <template>
   <div class="feature">
-
-    <div v-if="props.showMenu">
-      <el-button-group>
-        <el-button type="success"
-                   @click="generate(3)">Generate Safe</el-button>
-        <el-button type="primary"
-                   @click="generate(2)">Unsafe</el-button>
-        <el-button type="warning"
-                   @click="generate(1)">Dangerous</el-button>
-        <el-button type="danger"
-                   @click="generate(0)">Perilous</el-button>
-      </el-button-group>
-      <br />
-      <FeatureLegend />
-      <br />
-    </div>
-
     <h3 class="feature__category">{{ category }}</h3>
     <span class="feature__subcategory">{{ subcategory }}</span>
     <br>
@@ -26,25 +9,18 @@
 
 <script setup lang="ts">
 import { dieN } from '@/composables/dice';
-import { getArea } from '@/enums/areas';
-import { generateFactionPresence } from '@/enums/factionPresence';
-import { getHazard } from '@/enums/hazards';
-import { getObstacle } from '@/enums/obstacles';
-import { generatePlaceName } from '@/enums/places';
-import { getSite } from '@/enums/sites';
+import { getArea } from '@/enums/regions/areas';
+import { generateFactionPresence } from '@/enums/regions/factionPresence';
+import { getHazard } from '@/enums/regions/hazards';
+import { getObstacle } from '@/enums/regions/obstacles';
+import { generatePlaceName } from '@/enums/regions/places';
+import { getSite } from '@/enums/regions/sites';
 import { onMounted, ref, type Ref } from 'vue';
-import { ElButton, ElButtonGroup } from 'element-plus';
-import FeatureLegend from './FeatureLegend.vue';
 
 const props = defineProps({
   safety: {
     type: Number,
     required: true,
-  },
-  showMenu: {
-    type: Boolean,
-    required: false,
-    default: true,
   },
 });
 

@@ -1,5 +1,5 @@
 import { dieN } from '@/composables/dice';
-import { getDetailMagicType, getDetailElement, getDetailOddity } from './details';
+import { getDetailMagicType, getDetailElement, getDetailOddity } from '../details';
 
 export const HAZARD_UNNATURAL: string[] = [
   'taint/blight/curse',
