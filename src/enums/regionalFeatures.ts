@@ -6,6 +6,7 @@ import { getArea } from './regions/areas';
 import { generatePlaceName } from './regions/places';
 import { getSite } from './regions/sites';
 import { generateFactionPresence } from './regions/factionPresence';
+import { getCreature } from './creatures';
 
 export const RegionalFeatureEnum = {
   CREATURE: 'creature',
@@ -40,10 +41,12 @@ export const getRegionalFeature = (safety: number) => {
   switch (category) {
     case RegionalFeatureEnum.CREATURE: {
       // TODO Creature generation
+      const [creature, prompt] = getCreature(safety);
       return [
         category,
-        '',
-        'See the creature generation procedure in <span class="font-normal">Beasts & Booty</span>.',
+        creature,
+        prompt ??
+          'See the creature generation procedure in <span class="font-normal">Beasts & Booty</span>.',
       ];
     }
     case RegionalFeatureEnum.HAZARD: {
@@ -59,7 +62,7 @@ export const getRegionalFeature = (safety: number) => {
       return [category, subcategory, feature];
     }
     case RegionalFeatureEnum.NAMED_PLACE: {
-      return [category, '', generatePlaceName()];
+      return [category, undefined, generatePlaceName()];
     }
     case RegionalFeatureEnum.SITE: {
       const [subcategory, feature] = getSite();
@@ -78,14 +81,17 @@ export const getRegionalFeature = (safety: number) => {
       ];
     }
   }
-
-  return ['', '', ''];
 };
 
 const TRANSFORM_KEYWORDS: string[] = [
+  'ABERRANCE',
+  'ABILITY',
+  'BEAST',
   'CREATURE',
+  'ELEMENT',
   'FACTION',
   'HAZARD',
+  'HUMANOID',
   'OBSTACLE',
   'ODDITY',
   'RESOURCE',
@@ -93,6 +99,8 @@ const TRANSFORM_KEYWORDS: string[] = [
 ];
 
 export const transformHTML = (raw: string) => {
+  if (!raw) return '';
+
   const join = TRANSFORM_KEYWORDS.join('|');
   const regex = new RegExp(`\\b(${join})\\b`, 'ig');
   return raw.replace(regex, `<span class="small-caps">$1</span>`);

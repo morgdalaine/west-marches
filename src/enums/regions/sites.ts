@@ -70,7 +70,7 @@ export const getSite = () => {
     case 1:
     case 2: {
       const subcategory = 'dungeon';
-      return [subcategory, ''];
+      return [subcategory];
     }
     case 3:
     case 4: {
@@ -102,5 +102,5 @@ export const getSite = () => {
     }
   }
 
-  return ['', ''];
+  return [];
 };
