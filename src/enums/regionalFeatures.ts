@@ -1,12 +1,12 @@
 import { arrayAtBounded, dieN } from '@/composables/dice';
 import type { ObjectValues } from './enums';
-import { getHazard } from './regions/hazards';
-import { getObstacle } from './regions/obstacles';
-import { getArea } from './regions/areas';
-import { generatePlaceName } from './regions/places';
-import { getSite } from './regions/sites';
-import { generateFactionPresence } from './regions/factionPresence';
-import { getCreature } from './creatures';
+import { getHazard } from '@/enums/incidents/hazards';
+import { getObstacle } from '@/enums/incidents/obstacles';
+import { getArea } from '@/enums/regions/areas';
+import { generatePlaceName } from '@/enums/regions/places';
+import { getSite } from '@/enums/regions/sites';
+import { generateFactionPresence } from '@/enums/regions/factionPresence';
+import { getCreature } from '@/enums/creatures';
 
 export const RegionalFeatureEnum = {
   CREATURE: 'creature',
@@ -40,7 +40,6 @@ export const getRegionalFeature = (safety: number) => {
   const category = arrayAtBounded(REGIONAL_FEATURE, dieN(12, safety));
   switch (category) {
     case RegionalFeatureEnum.CREATURE: {
-      // TODO Creature generation
       const [creature, prompt] = getCreature(safety);
       return [
         category,

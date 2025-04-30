@@ -1,7 +1,7 @@
 import { dieN, dieWeightedRecord, type WeightedRecord } from '@/composables/dice';
 import { getDetailMagicType, getDetailElement, getDetailOddity } from '../details';
-import { getHazardNatural } from './hazards';
-import { getObstacleNatural } from './obstacles';
+import { getHazardNatural } from '@/enums/incidents/hazards';
+import { getObstacleNatural } from '@/enums/incidents/obstacles';
 
 export const AREA_UNNATURAL: WeightedRecord = {
   'magical': 6,
