@@ -11,3 +11,23 @@
     font-weight: 700;
   }
 }
+
+.el-button-group {
+  > .el-button:not(:last-child) {
+    margin-right: 2px;
+  }
+
+  .el-button {
+    &--success,
+    &--primary,
+    &--warning,
+    &--danger {
+      &:first-child,
+      &:last-child,
+      &:not(:first-child):not(:last-child) {
+        border-left-color: var(--el-button-border-color);
+        border-right-color: var(--el-button-border-color);
+      }
+    }
+  }
+}

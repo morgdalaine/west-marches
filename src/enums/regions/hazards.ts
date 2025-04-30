@@ -13,7 +13,7 @@ export const HAZARD_NATURAL: string[] = [
   'tectonic/volcanic',
   'precipitous (chasm, crevasse, abyss, rift)',
   'ensnaring (bog, mire, tarpit, quicksand, etc.)',
-  'defensive (trap created by local creature /faction)',
+  'defensive (trap created by local creature/faction)',
   'meteorological (blizzard, thunderstorm, sandstorm, etc.)',
   'seasonal (fire, flood, avalanche, etc.)',
   'impairing (mist, fog, murk, gloom, miasma, etc.)',

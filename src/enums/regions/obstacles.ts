@@ -9,7 +9,7 @@ export const OBSTACLE_UNNATURAL: WeightedRecord = {
 
 export const OBSTACLE_NATURAL: WeightedRecord = {
   'oddity-based': 1,
-  'defensive (barrier created by local creature /faction)': 1,
+  'defensive (barrier created by local creature/faction)': 1,
   'impenetrable (cliff, escarpment, crag, bluff, etc.)': 2,
   'penetrable (dense forest/jungle, etc.)': 2,
   'traversable (river, ravine, crevasse, chasm, abyss, etc.)': 2,

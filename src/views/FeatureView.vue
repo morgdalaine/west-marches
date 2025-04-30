@@ -10,23 +10,29 @@
       <el-button type="danger"
                  @click="generateFeature(0)">Perilous</el-button>
     </el-button-group>
+
+    <br />
+    <br />
+
+    <FeatureCard :safety="safety"
+                 :key="uuid" />
   </div>
 </template>
 
 <script setup lang="ts">
-import { onMounted } from 'vue';
+import FeatureCard from '@/components/FeatureCard.vue';
+import { onMounted, ref, type Ref } from 'vue';
 
-const props = defineProps({
-  safety: {
-    type: Number,
-    required: true,
-  },
-});
+const uuid = ref(0);
+const safety: Ref<number> = ref(0);
 
-const generateFeature = (safety: number) => {
+
+const generateFeature = (value: number) => {
+  safety.value = value;
+  uuid.value = safety.value + new Date().getSeconds();
 };
 
-onMounted(() => generateFeature(props.safety));
+onMounted(() => generateFeature(safety.value));
 </script>
 
 <style scoped lang="scss">
