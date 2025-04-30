@@ -12,7 +12,7 @@
 
 <script setup lang="ts">
 import DiscoveryCard from '@/components/DiscoveryCard.vue';
-import { onMounted, ref, } from 'vue';
+import { onMounted, ref } from 'vue';
 
 const uuid = ref(0);
 

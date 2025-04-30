@@ -1,5 +1,5 @@
 <template>
-  <div class="about">
+  <div class="sources">
     <h1>Sources</h1>
     <ul>
       <li>
@@ -11,14 +11,14 @@
   </div>
 </template>
 
-<style>
-@media (min-width: 1024px) {
-  .about {
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
+<style scoped lang="scss">
+.sources {
+  display: flex;
+  flex-direction: column;
+  font-family: "Alegreya", serif;
 
-    font-family: "Alegreya", serif;
+  @media (min-width: 1024px) {
+    min-height: 100vh;
   }
 }
 </style>

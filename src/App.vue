@@ -6,7 +6,7 @@
         <RouterLink to="/feature">Feature</RouterLink>
         <RouterLink to="/discovery">Discovery</RouterLink>
         <RouterLink to="/incident">Incident</RouterLink>
-        <RouterLink to="/about">About</RouterLink>
+        <RouterLink to="/sources">Sources</RouterLink>
       </nav>
 
     </div>

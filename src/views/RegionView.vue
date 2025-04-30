@@ -61,7 +61,7 @@ const regional_features: Ref<number> = ref(0);
 
 const nameIndex: Ref<number> = ref(0);
 const names: Ref<string[]> = ref([]);
-const name = computed(() => names.value[nameIndex.value])
+const name = computed(() => names.value[nameIndex.value]);
 
 const generateRegion = () => {
   size.value = getRegionSize();
@@ -78,17 +78,16 @@ const generateRegion = () => {
   other_tags.value = getRegionOtherTags(dieN(3));
 
   names.value = getRegionNameAll();
-  nameIndex.value = dieN(names.value.length)
+  nameIndex.value = dieN(names.value.length);
 };
 
 const cycleRegionName = () => {
   if (nameIndex.value + 1 >= names.value.length) {
     nameIndex.value = 0;
+  } else {
+    nameIndex.value++;
   }
-  else {
-    nameIndex.value++
-  }
-}
+};
 
 onMounted(() => generateRegion());
 </script>

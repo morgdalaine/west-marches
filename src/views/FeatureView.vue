@@ -26,7 +26,6 @@ import { onMounted, ref, type Ref } from 'vue';
 const uuid = ref(0);
 const safety: Ref<number> = ref(0);
 
-
 const generateFeature = (value: number) => {
   safety.value = value;
   uuid.value = safety.value + new Date().getMilliseconds();

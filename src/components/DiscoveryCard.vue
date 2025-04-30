@@ -24,8 +24,6 @@ const generateDiscovery = () => {
   category.value = cate;
   subcategory.value = subcat;
   discovery.value = transformHTML(feat);
-
-
 };
 
 onMounted(() => generateDiscovery());

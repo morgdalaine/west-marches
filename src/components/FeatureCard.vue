@@ -12,7 +12,7 @@
 
 <script setup lang="ts">
 import { transformHTML } from '@/composables/text';
-import { getRegionalFeature, } from '@/enums/regionalFeatures';
+import { getRegionalFeature } from '@/enums/regionalFeatures';
 import { onMounted, ref, type Ref } from 'vue';
 
 const props = defineProps({

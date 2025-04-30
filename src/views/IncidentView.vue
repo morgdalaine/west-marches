@@ -22,7 +22,7 @@
 <script setup lang="ts">
 import IncidentCard from '@/components/IncidentCard.vue';
 import { IncidentCategoryEnum, type IncidentCategory } from '@/enums/incidents/incidents';
-import { onMounted, ref, } from 'vue';
+import { onMounted, ref } from 'vue';
 
 const uuid = ref(0);
 const table = ref('');

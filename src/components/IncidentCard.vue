@@ -12,7 +12,7 @@
 
 <script setup lang="ts">
 import { transformHTML } from '@/composables/text';
-import { getIncident, type IncidentCategory, } from '@/enums/incidents/incidents';
+import { getIncident, type IncidentCategory } from '@/enums/incidents/incidents';
 import { onMounted, ref, type Ref } from 'vue';
 
 const props = defineProps({
@@ -28,12 +28,9 @@ const incident: Ref<string> = ref('');
 
 const generateIncident = () => {
   const array = getIncident(props.table as IncidentCategory);
-  console.debug(array)
   category.value = array.shift() ?? '';
   subcategory.value = array.shift() ?? '';
   incident.value = transformHTML(array.shift() ?? '');
-
-
 };
 
 onMounted(() => generateIncident());
