@@ -190,6 +190,11 @@ export const getBeastPrompt = (subcategory: string) => {
   return '';
 };
 
+export const getMonsterPromptSinglet = () => {
+  const subcategory = dieWeightedRecord(MONSTER_SUBCATEGORY);
+  const prompt = getMonsterPrompt(subcategory);
+  return dieArray(prompt?.split('/') ?? []);
+};
 export const getBeastPromptSinglet = () => {
   const subcategory = dieWeightedRecord(BEAST_SUBCATEGORY);
   const prompt = getBeastPrompt(subcategory);
