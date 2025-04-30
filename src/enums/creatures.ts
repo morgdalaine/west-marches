@@ -7,7 +7,6 @@ import {
 } from '@/composables/dice';
 import type { ObjectValues } from './enums';
 import { getDetailAberrance, getDetailAbility, getDetailElement, getDetailOddity } from './details';
-import { replace } from 'lodash';
 
 export const CreatureCategoryEnum = {
   MONSTER: 'monster',
