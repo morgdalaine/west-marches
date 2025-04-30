@@ -1,4 +1,4 @@
-import { dieN } from '@/composables/dice';
+import { dieArray } from '@/composables/dice';
 
 export const DETAIL_ODDITY: string[] = [
   'bright/garish/harsh',
@@ -11,10 +11,10 @@ export const DETAIL_ODDITY: string[] = [
   'magnetic/repellant',
   'multilevel/tiered',
   'absurd/impossible',
-] as const;
+];
 
 export const getDetailOddity = () => {
-  return DETAIL_ODDITY.at(dieN(DETAIL_ODDITY.length)) ?? '';
+  return dieArray(DETAIL_ODDITY);
 };
 
 export const DETAIL_ELEMENT: string[] = [
@@ -26,10 +26,10 @@ export const DETAIL_ELEMENT: string[] = [
   'air/wind/storm',
   'life/light',
   'stars/cosmos',
-] as const;
+];
 
 export const getDetailElement = () => {
-  return DETAIL_ELEMENT.at(dieN(DETAIL_ELEMENT.length)) ?? '';
+  return dieArray(DETAIL_ELEMENT);
 };
 
 export const DETAIL_MAGIC_TYPE: string[] = [
@@ -43,8 +43,8 @@ export const DETAIL_MAGIC_TYPE: string[] = [
   'elemental',
   'restoration/healing',
   'divination/scrying',
-] as const;
+];
 
 export const getDetailMagicType = () => {
-  return DETAIL_MAGIC_TYPE.at(dieN(DETAIL_MAGIC_TYPE.length)) ?? '';
+  return dieArray(DETAIL_MAGIC_TYPE);
 };
