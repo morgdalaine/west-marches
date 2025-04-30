@@ -2,17 +2,18 @@ import { dieN, dieWeightedRecord, type WeightedRecord } from '@/composables/dice
 import { getDetailMagicType, getDetailElement, getDetailOddity } from '../details';
 
 export const OBSTACLE_UNNATURAL: WeightedRecord = {
-  'magical': 6,
-  'planar': 1,
+  'magical': 7,
+  'planar': 4,
   'divine': 1,
 };
 
 export const OBSTACLE_NATURAL: WeightedRecord = {
   'oddity-based': 1,
-  'defensive (barrier created by local creature/faction)': 1,
-  'impenetrable (cliff, escarpment, crag, bluff, etc.)': 2,
+  'defensive (barrier created by local creature/faction)': 2,
+  'impenetrable (cliff, escarpment, crag, bluff, etc.)': 3,
   'penetrable (dense forest/jungle, etc.)': 2,
   'traversable (river, ravine, crevasse, chasm, abyss, etc.)': 2,
+  'impeding (wetland, sand dunes, deep snow, etc.)': 2,
 };
 
 export const getObstacleNatural = () => {

@@ -1,26 +1,26 @@
-import { dieArray, dieN, dieWeightedRecord, type WeightedRecord } from '@/composables/dice';
+import { dieN, dieWeightedRecord, type WeightedRecord } from '@/composables/dice';
 import { getDetailMagicType, getDetailElement, getDetailOddity } from '../details';
 
 export const HAZARD_UNNATURAL: WeightedRecord = {
-  'taint/blight/curse': 4,
-  'magical': 2,
-  'planar': 1,
+  'taint/blight/curse': 5,
+  'magical': 4,
+  'planar': 2,
   'divine': 1,
 };
 
-export const HAZARD_NATURAL: string[] = [
-  'oddity-based',
-  'tectonic/volcanic',
-  'precipitous (chasm, crevasse, abyss, rift)',
-  'ensnaring (bog, mire, tarpit, quicksand, etc.)',
-  'defensive (trap created by local creature/faction)',
-  'meteorological (blizzard, thunderstorm, sandstorm, etc.)',
-  'seasonal (fire, flood, avalanche, etc.)',
-  'impairing (mist, fog, murk, gloom, miasma, etc.)',
-];
+export const HAZARD_NATURAL: WeightedRecord = {
+  'oddity-based': 1,
+  'tectonic/volcanic': 1,
+  'precipitous (chasm, crevasse, abyss, rift)': 2,
+  'ensnaring (bog, mire, tarpit, quicksand, etc.)': 2,
+  'defensive (trap created by local creature/faction)': 1,
+  'meteorological (blizzard, thunderstorm, sandstorm, etc.)': 3,
+  'seasonal (fire, flood, avalanche, etc.)': 1,
+  'impairing (mist, fog, murk, gloom, miasma, etc.)': 1,
+};
 
 export const getHazardNatural = () => {
-  const hazard = dieArray(HAZARD_NATURAL);
+  const hazard = dieWeightedRecord(HAZARD_NATURAL);
   if (hazard === 'oddity-based') return `ODDITY ${getDetailOddity()}`;
 
   return hazard;
