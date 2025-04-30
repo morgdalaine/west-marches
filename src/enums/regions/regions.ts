@@ -25,20 +25,13 @@ export const RegionAlignmentEnum = {
 } as const;
 export type RegionAlignment = ObjectValues<typeof RegionAlignmentEnum>;
 
-export const REGION_SIZES: string[] = [
-  'small',
-  'sizable',
-  'sizable',
-  'sizable',
-  'large',
-  'large',
-  'large',
-  'large',
-  'large',
-  'expansive',
-  'expansive',
-  'vast',
-];
+export const REGION_SIZES: WeightedRecord = {
+  'small': 1,
+  'sizable': 3,
+  'large': 5,
+  'expansive': 2,
+  'vast': 1,
+};
 export const REGION_TERRAIN: Record<RegionClimate, string[]> = {
   [RegionClimateEnum.FRIGID]: [
     'volcanic highland',
@@ -83,20 +76,11 @@ export const REGION_TERRAIN: Record<RegionClimate, string[]> = {
     'lowland/desert/flats',
   ],
 };
-export const REGION_CLIMATE: string[] = [
-  'frigid',
-  'temperate',
-  'temperate',
-  'temperate',
-  'temperate',
-  'torrid',
-  'torrid',
-  'temperate',
-  'temperate',
-  'temperate',
-  'temperate',
-  'frigid',
-];
+export const REGION_CLIMATE: WeightedRecord = {
+  'frigid': 2,
+  'temperate': 8,
+  'torrid': 2,
+};
 export const REGION_ALIGNMENT: Array<RegionAlignment> = [
   'good',
   'lawful',
@@ -319,7 +303,7 @@ export const getRegionSafety = (alignment: RegionAlignment): [string, number] =>
   return [safety, REGION_SAFETY_MODIFIER[safety]];
 };
 
-export const getRegionSize = () => REGION_SIZES.at(dieN(REGION_SIZES.length)) ?? '';
+export const getRegionSize = () => dieWeightedRecord(REGION_SIZES);
 export const getRegionalFeatureCount = (size: string) => {
   if (size === 'small') return dieN(4) + 1;
   if (size === 'sizable') return 2 * (1 + dieN(6));
@@ -330,7 +314,7 @@ export const getRegionalFeatureCount = (size: string) => {
   return 3 * (1 + dieN(8));
 };
 
-export const getRegionClimate = () => dieArray(REGION_CLIMATE);
+export const getRegionClimate = () => dieWeightedRecord(REGION_CLIMATE);
 export const getRegionTerrain = (climate: RegionClimate) => dieArray(REGION_TERRAIN[climate]);
 export const getRegionAlignment = () => dieArray(REGION_ALIGNMENT);
 
