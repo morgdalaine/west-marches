@@ -36,7 +36,7 @@ export const REGIONAL_FEATURE: RegionalFeature[] = [
   'settlement',
 ];
 
-export const getRegionalFeature = (safety: number) => {
+export const getRegionalFeature = (safety: number): string[] => {
   const category = arrayAtBounded(REGIONAL_FEATURE, dieN(12, safety));
   switch (category) {
     case RegionalFeatureEnum.CREATURE: {
@@ -61,7 +61,7 @@ export const getRegionalFeature = (safety: number) => {
       return [category, subcategory, feature];
     }
     case RegionalFeatureEnum.NAMED_PLACE: {
-      return [category, undefined, generatePlaceName()];
+      return [category, '', generatePlaceName()];
     }
     case RegionalFeatureEnum.SITE: {
       const [subcategory, feature] = getSite();
@@ -71,7 +71,8 @@ export const getRegionalFeature = (safety: number) => {
       const [subcategory, feature] = generateFactionPresence();
       return [category, subcategory, feature];
     }
-    case RegionalFeatureEnum.SETTLEMENT: {
+    // case RegionalFeatureEnum.SETTLEMENT:
+    default: {
       // TODO Settlement generation
       return [
         category,
@@ -80,27 +81,4 @@ export const getRegionalFeature = (safety: number) => {
       ];
     }
   }
-};
-
-const TRANSFORM_KEYWORDS: string[] = [
-  'ABERRANCE',
-  'ABILITY',
-  'BEAST',
-  'CREATURE',
-  'ELEMENT',
-  'FACTION',
-  'HAZARD',
-  'HUMANOID',
-  'OBSTACLE',
-  'ODDITY',
-  'RESOURCE',
-  'SETTLEMENT',
-];
-
-export const transformHTML = (raw: string) => {
-  if (!raw) return '';
-
-  const join = TRANSFORM_KEYWORDS.join('|');
-  const regex = new RegExp(`\\b(${join})\\b`, 'ig');
-  return raw.replace(regex, `<span class="small-caps">$1</span>`);
 };

@@ -72,6 +72,35 @@ export const DETAIL_MAGIC_TYPE: WeightedRecord = {
   'restoration/healing': 1,
   'divination/scrying': 1,
 };
+export const DETAIL_ORIENTATION: WeightedRecord = {
+  'down/earthward': 2,
+  'north': 1,
+  'northeast': 1,
+  'east': 1,
+  'southeast': 1,
+  'south': 1,
+  'southwest': 1,
+  'west': 1,
+  'northwest': 1,
+  'up/skyward': 2,
+};
+export const DETAIL_TERRAIN: WeightedRecord = {
+  'sea/ocean': 1,
+  'wasteland/desert': 1,
+  'lowland/plains': 3,
+  'wetland/swamp': 1,
+  'woodland/jungle': 2,
+  'highland/hills': 2,
+  'mountains': 1,
+  'terrain + oddity': 1,
+};
+export const DETAIL_VISIBILITY: WeightedRecord = {
+  'buried/hidden/invisible': 2,
+  'obscured/overgrown': 4,
+  'obvious/in plain sight': 3,
+  'visible at near distance': 2,
+  'visible at far distance': 1,
+};
 
 export const getDetailAberrance = () => {
   return dieArray(DETAIL_ABERRANCE);
@@ -82,15 +111,21 @@ export const getDetailAbility = () => {
 export const getDetailActivity = () => {
   return dieArray(DETAIL_ACTIVITY);
 };
-
 export const getDetailOddity = () => {
   return dieArray(DETAIL_ODDITY);
 };
-
 export const getDetailElement = () => {
   return dieWeightedRecord(DETAIL_ELEMENT);
 };
-
+export const getDetailOrientation = () => {
+  return dieWeightedRecord(DETAIL_ORIENTATION);
+};
+export const getDetailTerrain = () => {
+  return dieWeightedRecord(DETAIL_TERRAIN);
+};
+export const getDetailVisibility = () => {
+  return dieWeightedRecord(DETAIL_VISIBILITY);
+};
 export const getDetailMagicType = () => {
   const magic = dieWeightedRecord(DETAIL_MAGIC_TYPE);
   if (magic === 'elemental') return getDetailElement();

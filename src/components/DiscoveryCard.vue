@@ -1,43 +1,38 @@
 <template>
-  <div class="feature"
-       :class="'feature--' + category">
-    <h3 class="feature__category">{{ category }}</h3>
-    <span class="feature__subcategory"
+  <div class="discovery"
+       :class="'discovery--' + category">
+    <h3 class="discovery__category">{{ category }}</h3>
+    <span class="discovery__subcategory"
           v-html="subcategory" />
     <br>
-    <span class="feature__feature"
-          v-html="feature" />
+    <span class="discovery__discovery"
+          v-html="discovery" />
   </div>
 </template>
 
 <script setup lang="ts">
 import { transformHTML } from '@/composables/text';
-import { getRegionalFeature, } from '@/enums/regionalFeatures';
+import { getDiscovery } from '@/enums/discoveries';
 import { onMounted, ref, type Ref } from 'vue';
-
-const props = defineProps({
-  safety: {
-    type: Number,
-    required: true,
-  },
-});
 
 const category: Ref<string> = ref('');
 const subcategory: Ref<string> = ref('');
-const feature: Ref<string> = ref('');
+const discovery: Ref<string> = ref('');
 
-const generateFeature = (safety: number) => {
-  const [cate, subcat, feat] = getRegionalFeature(safety);
+const generateDiscovery = () => {
+  const [cate, subcat, feat] = getDiscovery();
   category.value = cate;
   subcategory.value = subcat;
-  feature.value = transformHTML(feat);
+  discovery.value = transformHTML(feat);
+
+
 };
 
-onMounted(() => generateFeature(props.safety));
+onMounted(() => generateDiscovery());
 </script>
 
 <style scoped lang="scss">
-.feature {
+.discovery {
   position: relative;
   padding: 0.25em 0.5em;
   font-family: "Alegreya", serif;
@@ -67,7 +62,7 @@ onMounted(() => generateFeature(props.safety));
       display: none;
     }
   }
-  &__feature {
+  &__discovery {
     font-style: italic;
 
     > em {

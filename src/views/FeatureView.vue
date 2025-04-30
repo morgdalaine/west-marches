@@ -29,7 +29,7 @@ const safety: Ref<number> = ref(0);
 
 const generateFeature = (value: number) => {
   safety.value = value;
-  uuid.value = safety.value + new Date().getSeconds();
+  uuid.value = safety.value + new Date().getMilliseconds();
 };
 
 onMounted(() => generateFeature(safety.value));
