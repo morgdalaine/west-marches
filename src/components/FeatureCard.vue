@@ -13,11 +13,11 @@
                    @click="generate(0)">Perilous</el-button>
       </el-button-group>
       <br />
+      <FeatureLegend />
       <br />
     </div>
 
     <h3 class="feature__category">{{ category }}</h3>
-    <!-- <span class="feature__description">{{ description }}</span> -->
     <span class="feature__subcategory">{{ subcategory }}</span>
     <br>
     <span class="feature__feature">{{ feature }}</span>
@@ -34,6 +34,7 @@ import { generatePlaceName } from '@/enums/places';
 import { getSite } from '@/enums/sites';
 import { onMounted, ref, type Ref } from 'vue';
 import { ElButton, ElButtonGroup } from 'element-plus';
+import FeatureLegend from './FeatureLegend.vue';
 
 const props = defineProps({
   safety: {
@@ -122,7 +123,7 @@ onMounted(() => generate(props.safety));
     font-weight: 700
   }
   &__subcategory {
-    text-transform: uppercase;
+    text-transform: capitalize;
     color: white;
   }
   &__feature {

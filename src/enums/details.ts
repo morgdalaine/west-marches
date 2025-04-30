@@ -1,6 +1,6 @@
 import { dieN } from '@/composables/dice';
 
-export const DETAIL_ODDITY: Array<string> = [
+export const DETAIL_ODDITY: string[] = [
   'bright/garish/harsh',
   'geometric/concentric',
   'web/network',
@@ -17,7 +17,7 @@ export const getDetailOddity = () => {
   return DETAIL_ODDITY.at(dieN(DETAIL_ODDITY.length)) ?? '';
 };
 
-export const DETAIL_ELEMENT: Array<string> = [
+export const DETAIL_ELEMENT: string[] = [
   'void',
   'death/darkness',
   'fire/metal/smoke',
@@ -32,7 +32,7 @@ export const getDetailElement = () => {
   return DETAIL_ELEMENT.at(dieN(DETAIL_ELEMENT.length)) ?? '';
 };
 
-export const DETAIL_MAGIC_TYPE: Array<string> = [
+export const DETAIL_MAGIC_TYPE: string[] = [
   'necromancy',
   'evocation/destruction',
   'conjuration/summoning',

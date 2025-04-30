@@ -3,7 +3,7 @@ import { getDetailMagicType, getDetailElement, getDetailOddity } from './details
 import { getHazardNatural } from './hazards';
 import { getObstacleNatural } from './obstacles';
 
-export const AREA_UNNATURAL: Array<string> = [
+export const AREA_UNNATURAL: string[] = [
   'magical',
   'magical',
   'magical',
@@ -12,9 +12,13 @@ export const AREA_UNNATURAL: Array<string> = [
   'magical',
   'planar',
   'divine',
+
+  // 'magical': 6,
+  // 'planar': 1,
+  // 'divine': 1,
 ];
 
-export const AREA_NATURAL: Array<string> = [
+export const AREA_NATURAL: string[] = [
   'oddity-based',
   'hazard-based',
   'obstacle-based',

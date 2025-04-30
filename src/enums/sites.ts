@@ -1,7 +1,7 @@
 import { dieN } from '@/composables/dice';
 import { getDetailMagicType, getDetailOddity } from './details';
 
-export const SITE_LAIR: Array<string> = [
+export const SITE_LAIR: string[] = [
   'inhabited RUIN',
   'inhabited RUIN',
   'inhabited cave',
@@ -11,7 +11,7 @@ export const SITE_LAIR: Array<string> = [
   'hovel/hut/encampment',
   'farmstead/homestead',
 ];
-export const SITE_RUIN: Array<string> = [
+export const SITE_RUIN: string[] = [
   'tomb/crypt/necropolis',
   'tomb/crypt/necropolis',
   'shrine/temple',
@@ -21,7 +21,7 @@ export const SITE_RUIN: Array<string> = [
   'ancient OUTPOST',
   'ancient SETTLEMENT',
 ];
-export const SITE_OUTPOST: Array<string> = [
+export const SITE_OUTPOST: string[] = [
   'planar/magical',
   'FACTION outpost',
   'tollhouse/checkpoint',
@@ -31,7 +31,7 @@ export const SITE_OUTPOST: Array<string> = [
   'tower/fort/base',
   'tower/fort/base',
 ];
-export const SITE_LANDMARK: Array<string> = [
+export const SITE_LANDMARK: string[] = [
   'oddity-based',
   'plant/tree-based',
   'earth/rock-based',
@@ -41,7 +41,7 @@ export const SITE_LANDMARK: Array<string> = [
   'megalith/obelisk/statue',
   'magical',
 ];
-export const SITE_RESOURCE: Array<string> = [
+export const SITE_RESOURCE: string[] = [
   'oddity-based',
   'game/hide/fur',
   'timber/clay/stone',
@@ -52,7 +52,7 @@ export const SITE_RESOURCE: Array<string> = [
   'magical',
 ];
 
-export const getSiteFeature = (features: Array<string>, index = -1): string => {
+export const getSiteFeature = (features: string[], index = -1): string => {
   const die = index >= 0 ? index : dieN(features.length);
   const site = features.at(die) ?? '';
 

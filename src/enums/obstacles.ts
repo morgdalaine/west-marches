@@ -1,7 +1,7 @@
 import { dieN } from '@/composables/dice';
 import { getDetailMagicType, getDetailElement, getDetailOddity } from './details';
 
-export const OBSTACLE_UNNATURAL: Array<string> = [
+export const OBSTACLE_UNNATURAL: string[] = [
   'magical',
   'magical',
   'magical',
@@ -12,7 +12,7 @@ export const OBSTACLE_UNNATURAL: Array<string> = [
   'divine',
 ];
 
-export const OBSTACLE_NATURAL: Array<string> = [
+export const OBSTACLE_NATURAL: string[] = [
   'oddity-based',
   'defensive (barrier created by local creature /faction)',
   'impenetrable (cliff, escarpment, crag, bluff, etc.)',

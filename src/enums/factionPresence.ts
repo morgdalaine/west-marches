@@ -1,6 +1,6 @@
 import { dieN } from '@/composables/dice';
 
-export const FACTION_TYPE: Array<string> = [
+export const FACTION_TYPE: string[] = [
   'rebel/subversive',
   'criminal/corrupt',
   'immigrant/outsider',
@@ -12,7 +12,7 @@ export const FACTION_TYPE: Array<string> = [
   'academic/arcane',
 ];
 
-export const FACTION_GOAL: Array<string> = [
+export const FACTION_GOAL: string[] = [
   'hunt/oppose FACTION',
   'hunt/oppose CREATURE',
   'spy/sabotage/infiltrate',
@@ -23,7 +23,7 @@ export const FACTION_GOAL: Array<string> = [
   'establish/maintain trade',
 ];
 
-export const FACTION_CONDITION: Array<string> = [
+export const FACTION_CONDITION: string[] = [
   'failing/shrinking',
   'nascent/incipient',
   'stable/sustained',

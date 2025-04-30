@@ -1,4 +1,4 @@
-import { dieN } from '@/composables/dice';
+import { dieArray, dieN } from '@/composables/dice';
 import type { ObjectValues } from './enums';
 
 export const RegionClimateEnum = {
@@ -25,7 +25,7 @@ export const RegionAlignmentEnum = {
 } as const;
 export type RegionAlignment = ObjectValues<typeof RegionAlignmentEnum>;
 
-export const REGION_SIZES: Array<string> = [
+export const REGION_SIZES: string[] = [
   'small',
   'sizable',
   'sizable',
@@ -39,8 +39,7 @@ export const REGION_SIZES: Array<string> = [
   'expansive',
   'vast',
 ];
-
-export const REGION_TERRAIN: Record<RegionClimate, Array<string>> = {
+export const REGION_TERRAIN: Record<RegionClimate, string[]> = {
   [RegionClimateEnum.FRIGID]: [
     'volcanic highland ',
     'mountains/glacier ',
@@ -84,7 +83,7 @@ export const REGION_TERRAIN: Record<RegionClimate, Array<string>> = {
     'lowland/desert/flats',
   ],
 };
-export const REGION_CLIMATE: Array<string> = [
+export const REGION_CLIMATE: string[] = [
   'frigid',
   'temperate',
   'temperate',
@@ -117,7 +116,7 @@ export const REGION_SAFETY: Array<RegionSafety> = [
   'dangerous',
   'perilous',
 ];
-export const REGION_OTHER_TAGS: Array<string> = [
+export const REGION_OTHER_TAGS: string[] = [
   'barren',
   'blighted',
   'civilized',
@@ -130,7 +129,7 @@ export const REGION_OTHER_TAGS: Array<string> = [
   'resource (type)',
   'unholy (deity)',
 ];
-export const REGION_NAME_TEMPLATE: Array<string> = [
+export const REGION_NAME_TEMPLATE: string[] = [
   '(The) [adjective] [terrain]',
   '(The) [adjective] [terrain]',
   '(The) [adjective] [terrain]',
@@ -141,10 +140,10 @@ export const REGION_NAME_TEMPLATE: Array<string> = [
   'The [terrain] [adjective] ',
   '(The) [noun] [terrain]',
   '(The) [noun] [terrain]',
-  '(The) [noun]’s [adjective] [terrain]',
+  "(The) [noun]'s [adjective] [terrain]",
   '[adjective] [terrain] of (the) [noun]',
 ];
-export const REGION_NAME_TERRAIN: Array<string> = [
+export const REGION_NAME_TERRAIN: string[] = [
   'Bay',
   'Morass',
   'Bluffs',
@@ -196,7 +195,7 @@ export const REGION_NAME_TERRAIN: Array<string> = [
   'Moor',
   'Woods',
 ];
-export const REGION_NAME_ADJECTIVE: Array<string> = [
+export const REGION_NAME_ADJECTIVE: string[] = [
   'Ageless',
   'Forgotten',
   'Ashen',
@@ -248,7 +247,7 @@ export const REGION_NAME_ADJECTIVE: Array<string> = [
   'Flaming',
   'Yellow',
 ];
-export const REGION_NAME_NOUN: Array<string> = [
+export const REGION_NAME_NOUN: string[] = [
   '[Name]* ',
   'Life',
   'Ash ',
@@ -337,26 +336,24 @@ export const getRegionalFeatureCount = (size: string) => {
   return 3 * (1 + dieN(8));
 };
 
-export const getRegionClimate = () => REGION_CLIMATE.at(dieN(REGION_CLIMATE.length)) ?? '';
-export const getRegionTerrain = (climate: RegionClimate) =>
-  REGION_TERRAIN[climate].at(dieN(REGION_TERRAIN[climate].length)) ?? '';
-export const getRegionAlignment = () => REGION_ALIGNMENT.at(dieN(REGION_ALIGNMENT.length)) ?? '';
+export const getRegionClimate = () => dieArray(REGION_CLIMATE);
+export const getRegionTerrain = (climate: RegionClimate) => dieArray(REGION_TERRAIN[climate]);
+export const getRegionAlignment = () => dieArray(REGION_ALIGNMENT);
 
 export const getRegionOtherTags = (count: number) => {
   const tags = [];
   for (let t = 0; t <= count; t++) {
-    tags.push(REGION_OTHER_TAGS.at(dieN(REGION_OTHER_TAGS.length)) ?? '');
+    tags.push(dieArray(REGION_OTHER_TAGS));
   }
 
   return tags;
 };
 
 export const getRegionName = () => {
-  const template =
-    REGION_NAME_TEMPLATE.at(dieN(REGION_NAME_TEMPLATE.length)) ?? REGION_NAME_TEMPLATE[0];
-  const name_terrain = REGION_NAME_TERRAIN.at(dieN(REGION_NAME_TERRAIN.length)) ?? '';
-  const name_adjective = REGION_NAME_ADJECTIVE.at(dieN(REGION_NAME_ADJECTIVE.length)) ?? '';
-  const name_noun = REGION_NAME_NOUN.at(dieN(REGION_NAME_NOUN.length)) ?? '';
+  const template = dieArray(REGION_NAME_TEMPLATE);
+  const name_terrain = dieArray(REGION_NAME_TERRAIN);
+  const name_adjective = dieArray(REGION_NAME_ADJECTIVE);
+  const name_noun = dieArray(REGION_NAME_NOUN);
 
   return template
     .replace('[terrain]', name_terrain)

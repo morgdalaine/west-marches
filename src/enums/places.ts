@@ -1,6 +1,6 @@
 import { dieN } from '@/composables/dice';
 
-export const PLACE_TEMPLATE: Array<string> = [
+export const PLACE_TEMPLATE: string[] = [
   'The [place] ',
   'The [adjective] [place] ',
   'The [place] of (the) [noun] ',
@@ -8,7 +8,7 @@ export const PLACE_TEMPLATE: Array<string> = [
   '[place] of the [adjective] [noun]',
   'The [adjective] [noun]',
 ];
-export const PLACE_PLACE: Array<string> = [
+export const PLACE_PLACE: string[] = [
   'Barrier',
   'Beach',
   'Bowl',
@@ -60,7 +60,7 @@ export const PLACE_PLACE: Array<string> = [
   'Village',
   'Wall',
 ];
-export const PLACE_ADJECTIVE: Array<string> = [
+export const PLACE_ADJECTIVE: string[] = [
   'Ancient',
   'Ashen',
   'Black',
@@ -112,7 +112,7 @@ export const PLACE_ADJECTIVE: Array<string> = [
   'White',
   'Withered',
 ];
-export const PLACE_NOUN: Array<string> = [
+export const PLACE_NOUN: string[] = [
   '[Name]*',
   'Arm',
   'Ash',

@@ -1,7 +1,7 @@
 import { dieN } from '@/composables/dice';
 import { getDetailMagicType, getDetailElement, getDetailOddity } from './details';
 
-export const HAZARD_UNNATURAL: Array<string> = [
+export const HAZARD_UNNATURAL: string[] = [
   'taint/blight/curse',
   'taint/blight/curse',
   'taint/blight/curse',
@@ -12,7 +12,7 @@ export const HAZARD_UNNATURAL: Array<string> = [
   'divine',
 ];
 
-export const HAZARD_NATURAL: Array<string> = [
+export const HAZARD_NATURAL: string[] = [
   'oddity-based',
   'tectonic/volcanic',
   'precipitous (chasm, crevasse, abyss, rift)',

@@ -16,7 +16,8 @@
             :key="tag">{{ tag }}</span>
     </div>
 
-    <!-- <span>Features: {{ regional_features }}</span> -->
+    <br>
+    <hr>
     <div class="region__features">
       <div v-for="li in regional_features"
            :key="regional_features + safety_mod + li">
@@ -55,7 +56,7 @@ const climate: Ref<string> = ref('');
 const alignment: Ref<string> = ref('');
 const safety: Ref<string> = ref('');
 const travel: Ref<string> = ref('');
-const other_tags: Ref<Array<string>> = ref([]);
+const other_tags: Ref<string[]> = ref([]);
 
 const safety_mod: Ref<number> = ref(0);
 const regional_features: Ref<number> = ref(0);
