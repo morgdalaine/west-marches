@@ -196,22 +196,26 @@ export const getBeastPromptSinglet = () => {
   return dieArray(prompt?.split('/') ?? []);
 };
 
+const getCreaturePair = (category: string, subcategory: string) => {
+  return `${subcategory} <span class="font-uppercase">${category}</span>`;
+};
+
 export const getCreature = (safety = 0): string[] => {
   const category = arrayAtBounded(CREATURE_CATEGORY, dieN(12, safety));
 
   switch (category) {
     case CreatureCategoryEnum.MONSTER: {
       const subcategory = dieWeightedRecord(MONSTER_SUBCATEGORY);
-      return [`${category}—${subcategory}`, getMonsterPrompt(subcategory)];
+      return [getCreaturePair(category, subcategory), getMonsterPrompt(subcategory)];
     }
     case CreatureCategoryEnum.BEAST: {
       const subcategory = dieWeightedRecord(BEAST_SUBCATEGORY);
-      return [`${category}—${subcategory}`, getBeastPrompt(subcategory)];
+      return [getCreaturePair(category, subcategory), getBeastPrompt(subcategory)];
     }
     // case CreatureCategoryEnum.HUMANOID:
     default: {
       const subcategory = dieWeightedRecord(HUMANOID_SUBCATEGORY);
-      return [`${category}—${subcategory}`, ''];
+      return [getCreaturePair(category, subcategory), ''];
     }
   }
 };

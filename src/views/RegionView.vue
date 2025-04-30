@@ -23,7 +23,8 @@
       <div v-for="li in regional_features"
            :key="regional_features + safety_mod + li">
 
-        <FeatureCard :safety="safety_mod" />
+        <FeatureCard :safety="safety_mod"
+                     :key="new Date().getMilliseconds()" />
       </div>
     </div>
 

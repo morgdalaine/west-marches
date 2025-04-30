@@ -34,3 +34,7 @@ export const transformHTML = (raw: string) => {
   const regex = new RegExp(`\\b(${join})\\b`, 'ig');
   return raw.replace(regex, `<span class="small-caps">$1</span>`);
 };
+
+export const getFeaturePair = (feature: string, detail: string) => {
+  return `${feature} <span class="small-caps">${detail}</span>`;
+};

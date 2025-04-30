@@ -14,4 +14,21 @@ span {
 
 .font-normal {
   font-style: normal;
+  text-transform: capitalize;
+}
+
+.font-small-italic {
+  font-variant: all-small-caps;
+  text-transform: capitalize;
+  font-style: italic;
+}
+
+.font-uppercase {
+  text-transform: uppercase;
+  font-style: normal;
+}
+
+.font-small {
+  font-variant: all-small-caps;
+  text-transform: capitalize;
 }

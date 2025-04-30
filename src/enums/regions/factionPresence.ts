@@ -44,5 +44,5 @@ export const generateFactionPresence = () => {
   );
   const condition = dieWeightedRecord(FACTION_CONDITION);
 
-  return [`${condition} ${type}`, goal];
+  return [`<span class="font-small">${condition}</span><br/>${type}`, goal];
 };

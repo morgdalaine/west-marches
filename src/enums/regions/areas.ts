@@ -2,6 +2,7 @@ import { dieN, dieWeightedRecord, type WeightedRecord } from '@/composables/dice
 import { getDetailMagicType, getDetailElement, getDetailOddity } from '../details';
 import { getHazardNatural } from '@/enums/incidents/hazards';
 import { getObstacleNatural } from '@/enums/incidents/obstacles';
+import { getFeaturePair } from '@/composables/text';
 
 export const AREA_UNNATURAL: WeightedRecord = {
   'magical': 6,
@@ -38,13 +39,13 @@ export const getArea = () => {
 
     if (feature === 'magical') {
       subcategory = `${feature} Area`;
-      feature = `${getAreaNatural()} [${getDetailMagicType()}]`;
+      feature = getFeaturePair(getAreaNatural(), getDetailMagicType());
     } else if (feature === 'planar') {
       subcategory = `${feature} Area`;
-      feature = `${getAreaNatural()} [${getDetailElement()}]`;
+      feature = getFeaturePair(getAreaNatural(), getDetailElement());
     } else if (feature === 'divine') {
       subcategory = `${feature} Area`;
-      feature = `${getAreaNatural()} [attach diety]`;
+      feature = getFeaturePair(getAreaNatural(), 'attach diety');
     }
 
     return [subcategory, feature];
