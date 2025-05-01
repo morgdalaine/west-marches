@@ -20,6 +20,10 @@ const props = defineProps({
     type: Number,
     required: true,
   },
+  forceCategory: {
+    type: String,
+    required: false,
+  },
 });
 
 const category: Ref<string> = ref('');
@@ -27,7 +31,7 @@ const subcategory: Ref<string> = ref('');
 const feature: Ref<string> = ref('');
 
 const generateFeature = (safety: number) => {
-  const [cate, subcat, feat] = getRegionalFeature(safety);
+  const [cate, subcat, feat] = getRegionalFeature(safety, props.forceCategory);
   category.value = cate;
   subcategory.value = subcat;
   feature.value = transformHTML(feat);

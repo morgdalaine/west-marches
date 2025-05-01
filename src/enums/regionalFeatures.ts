@@ -36,8 +36,11 @@ export const REGIONAL_FEATURE: RegionalFeature[] = [
   'settlement',
 ];
 
-export const getRegionalFeature = (safety: number): string[] => {
-  const category = arrayAtBounded(REGIONAL_FEATURE, dieN(12, safety));
+export const getRegionalFeature = (
+  safety: number,
+  forceCategory: RegionalFeature | undefined,
+): string[] => {
+  const category = forceCategory || arrayAtBounded(REGIONAL_FEATURE, dieN(12, safety));
   switch (category) {
     case RegionalFeatureEnum.CREATURE: {
       const [creature, prompt] = getCreature(safety);
