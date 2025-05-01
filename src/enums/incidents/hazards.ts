@@ -1,6 +1,6 @@
 import { dieN, dieWeightedRecord, type WeightedRecord } from '@/composables/dice';
 import { getDetailMagicType, getDetailElement, getDetailOddity } from '../details';
-import { getFeaturePair } from '@/composables/text';
+import { getBoldTitlePair, getSmallCapsPair } from '@/composables/text';
 
 export const HAZARD_UNNATURAL: WeightedRecord = {
   'taint/blight/curse': 5,
@@ -29,7 +29,7 @@ export const getHazardNatural = () => {
 
 export const getHazard = () => {
   const index = dieN(10, 1);
-  let subcategory = 'Natural Hazard';
+  let subcategory = getBoldTitlePair('Natural', 'Hazard');
 
   // unnatural
   if (index === 1) {
@@ -37,14 +37,14 @@ export const getHazard = () => {
     let feature = dieWeightedRecord(HAZARD_UNNATURAL);
 
     if (feature === 'magical') {
-      subcategory = `${feature} Hazard`;
-      feature = getFeaturePair(getHazardNatural(), getDetailMagicType());
+      subcategory = getBoldTitlePair(feature, 'Hazard');
+      feature = getSmallCapsPair(getHazardNatural(), getDetailMagicType());
     } else if (feature === 'planar') {
-      subcategory = `${feature} Hazard`;
-      feature = getFeaturePair(getHazardNatural(), getDetailElement());
+      subcategory = getBoldTitlePair(feature, 'Hazard');
+      feature = getSmallCapsPair(getHazardNatural(), getDetailElement());
     } else if (feature === 'divine') {
-      subcategory = `${feature} Hazard`;
-      feature = getFeaturePair(getHazardNatural(), 'attach diety');
+      subcategory = getBoldTitlePair(feature, 'Hazard');
+      feature = getSmallCapsPair(getHazardNatural(), 'attach diety');
     }
 
     return [subcategory, feature];

@@ -1,14 +1,10 @@
 <template>
   <div class="incident">
     <el-button-group>
-      <el-button type="success"
-                 @click="generateIncidents(IncidentCategoryEnum.SETTLEMENT)">Generate {{ IncidentCategoryEnum.SETTLEMENT }}</el-button>
-      <el-button type="primary"
-                 @click="generateIncidents(IncidentCategoryEnum.ROAD)">{{ IncidentCategoryEnum.ROAD }}</el-button>
-      <el-button type="warning"
-                 @click="generateIncidents(IncidentCategoryEnum.WILDERNESS)">{{ IncidentCategoryEnum.WILDERNESS }}</el-button>
-      <el-button type="danger"
-                 @click="generateIncidents(IncidentCategoryEnum.DUNGEON)">{{ IncidentCategoryEnum.DUNGEON }}</el-button>
+      <el-button @click="generateIncidents(IncidentCategoryEnum.SETTLEMENT)">Generate {{ IncidentCategoryEnum.SETTLEMENT }}</el-button>
+      <el-button @click="generateIncidents(IncidentCategoryEnum.ROAD)">{{ IncidentCategoryEnum.ROAD }}</el-button>
+      <el-button @click="generateIncidents(IncidentCategoryEnum.WILDERNESS)">{{ IncidentCategoryEnum.WILDERNESS }}</el-button>
+      <el-button @click="generateIncidents(IncidentCategoryEnum.DUNGEON)">{{ IncidentCategoryEnum.DUNGEON }}</el-button>
     </el-button-group>
 
     <br />

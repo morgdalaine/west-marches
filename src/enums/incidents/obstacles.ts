@@ -1,6 +1,6 @@
 import { dieN, dieWeightedRecord, type WeightedRecord } from '@/composables/dice';
 import { getDetailMagicType, getDetailElement, getDetailOddity } from '../details';
-import { getFeaturePair } from '@/composables/text';
+import { getBoldTitlePair, getSmallCapsPair } from '@/composables/text';
 
 export const OBSTACLE_UNNATURAL: WeightedRecord = {
   'magical': 7,
@@ -26,21 +26,21 @@ export const getObstacleNatural = () => {
 
 export const getObstacle = () => {
   const index = dieN(10, 1);
-  let subcategory = 'Natural Obstacle';
+  let subcategory = getBoldTitlePair('Natural', 'Obstacle');
 
   // unnatural
   if (index === 1) {
     let feature = dieWeightedRecord(OBSTACLE_UNNATURAL);
 
     if (feature === 'magical') {
-      subcategory = `${feature} Obstacle`;
-      feature = getFeaturePair(getObstacleNatural(), getDetailMagicType());
+      subcategory = getBoldTitlePair(feature, 'Obstacle');
+      feature = getSmallCapsPair(getObstacleNatural(), getDetailMagicType());
     } else if (feature === 'planar') {
-      subcategory = `${feature} Obstacle`;
-      feature = getFeaturePair(getObstacleNatural(), getDetailElement());
+      subcategory = getBoldTitlePair(feature, 'Obstacle');
+      feature = getSmallCapsPair(getObstacleNatural(), getDetailElement());
     } else if (feature === 'divine') {
-      subcategory = `${feature} Obstacle`;
-      feature = getFeaturePair(getObstacleNatural(), 'attach diety');
+      subcategory = getBoldTitlePair(feature, 'Obstacle');
+      feature = getSmallCapsPair(getObstacleNatural(), 'attach diety');
     }
 
     return [subcategory, feature];

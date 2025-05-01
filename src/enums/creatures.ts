@@ -7,6 +7,7 @@ import {
 } from '@/composables/dice';
 import type { ObjectValues } from './enums';
 import { getDetailAberrance, getDetailAbility, getDetailElement, getDetailOddity } from './details';
+import { getBoldTitlePair } from '@/composables/text';
 
 export const CreatureCategoryEnum = {
   MONSTER: 'monster',
@@ -201,26 +202,22 @@ export const getBeastPromptSinglet = () => {
   return dieArray(prompt?.split('/') ?? []);
 };
 
-const getCreaturePair = (category: string, subcategory: string) => {
-  return `${subcategory} <span class="font-uppercase">${category}</span>`;
-};
-
 export const getCreature = (safety = 0): string[] => {
   const category = arrayAtBounded(CREATURE_CATEGORY, dieN(12, safety));
 
   switch (category) {
     case CreatureCategoryEnum.MONSTER: {
       const subcategory = dieWeightedRecord(MONSTER_SUBCATEGORY);
-      return [getCreaturePair(category, subcategory), getMonsterPrompt(subcategory)];
+      return [getBoldTitlePair(subcategory, category), getMonsterPrompt(subcategory)];
     }
     case CreatureCategoryEnum.BEAST: {
       const subcategory = dieWeightedRecord(BEAST_SUBCATEGORY);
-      return [getCreaturePair(category, subcategory), getBeastPrompt(subcategory)];
+      return [getBoldTitlePair(subcategory, category), getBeastPrompt(subcategory)];
     }
     // case CreatureCategoryEnum.HUMANOID:
     default: {
       const subcategory = dieWeightedRecord(HUMANOID_SUBCATEGORY);
-      return [getCreaturePair(category, subcategory), ''];
+      return [getBoldTitlePair(subcategory, category), ''];
     }
   }
 };

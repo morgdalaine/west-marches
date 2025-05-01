@@ -2,7 +2,7 @@ import { dieN, dieWeightedRecord, type WeightedRecord } from '@/composables/dice
 import { getDetailMagicType, getDetailElement, getDetailOddity } from '../details';
 import { getHazardNatural } from '@/enums/incidents/hazards';
 import { getObstacleNatural } from '@/enums/incidents/obstacles';
-import { getFeaturePair } from '@/composables/text';
+import { getBoldTitlePair, getSmallCapsPair } from '@/composables/text';
 
 export const AREA_UNNATURAL: WeightedRecord = {
   'magical': 6,
@@ -31,21 +31,21 @@ export const getAreaNatural = () => {
 
 export const getArea = () => {
   const index = dieN(10, 1);
-  let subcategory = 'Natural Area';
+  let subcategory = getBoldTitlePair('Natural', 'Area');
 
   // unnatural
   if (index === 1) {
     let feature = dieWeightedRecord(AREA_UNNATURAL);
 
     if (feature === 'magical') {
-      subcategory = `${feature} Area`;
-      feature = getFeaturePair(getAreaNatural(), getDetailMagicType());
+      subcategory = getBoldTitlePair(feature, 'Area');
+      feature = getSmallCapsPair(getAreaNatural(), getDetailMagicType());
     } else if (feature === 'planar') {
-      subcategory = `${feature} Area`;
-      feature = getFeaturePair(getAreaNatural(), getDetailElement());
+      subcategory = getBoldTitlePair(feature, 'Area');
+      feature = getSmallCapsPair(getAreaNatural(), getDetailElement());
     } else if (feature === 'divine') {
-      subcategory = `${feature} Area`;
-      feature = getFeaturePair(getAreaNatural(), 'attach diety');
+      subcategory = getBoldTitlePair(feature, 'Area');
+      feature = getSmallCapsPair(getAreaNatural(), 'attach diety');
     }
 
     return [subcategory, feature];

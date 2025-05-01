@@ -41,6 +41,10 @@ export const transformHTML = (raw: string) => {
   return raw.replace(regex, `<span class="small-caps">$1</span>`);
 };
 
-export const getFeaturePair = (feature: string, detail: string) => {
-  return `${feature} <span class="small-caps">${detail}</span>`;
+export const getSmallCapsPair = (text: string, small: string) => {
+  return `${text} <span class="small-caps">${small}</span>`;
+};
+
+export const getBoldTitlePair = (bold: string, text: string) => {
+  return `${bold} <span class="font-uppercase">${text}</span>`;
 };

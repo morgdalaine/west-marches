@@ -2,6 +2,7 @@ import { type WeightedRecord, dieWeightedRecord } from '@/composables/dice';
 import type { ObjectValues } from '../enums';
 import { getDetailOddity } from '../details';
 import { getBeastPromptSinglet, getMonsterPromptSinglet } from '../creatures';
+import { getBoldTitlePair } from '@/composables/text';
 
 export const EventCategoryEnum = {
   UNNATURAL_EVENT: 'unnatural event',
@@ -377,10 +378,6 @@ export const EVENT_OPPORTUNITY_SUBCATEGORY: Record<string, WeightedRecord> = {
   [EventOpportunityEnum.DELIVER]: EVENT_OPPORTUNITY_DELIVER,
 };
 
-const getEventPair = (category: string, subcategory: string) => {
-  return `${subcategory} <span class="font-uppercase">${category}</span>`;
-};
-
 export const getEventCategory = () => dieWeightedRecord(EVENT_CATEGORY);
 export const getEvent = () => {
   const category = getEventCategory();
@@ -418,13 +415,6 @@ export const getEvent = () => {
         return '';
     }
   })();
-  // const prompt = (() => {
-  //   console.debug(subcategory);
-  //   switch (subcategory) {
-  //     default:
-  //       return 'An event <span class="font-normal">(Settlements & Citizens)</span> is something notable that occurs within the bounds of a community.';
-  //   }
-  // })();
 
-  return [getEventPair(category, subcategory), prompt];
+  return [getBoldTitlePair(subcategory, category), prompt];
 };
