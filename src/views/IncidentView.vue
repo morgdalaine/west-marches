@@ -10,8 +10,14 @@
     <br />
     <h2 class="incident__table">{{ table }}</h2>
 
-    <IncidentCard :table="table"
-                  :key="uuid" />
+    <div class="incident__list">
+      <div v-for="n in 6"
+           :key="n + uuid">
+
+        <IncidentCard :table="table"
+                      :key="uuid" />
+      </div>
+    </div>
   </div>
 </template>
 
@@ -42,6 +48,13 @@ onMounted(() => generateIncidents(IncidentCategoryEnum.SETTLEMENT));
     font-weight: 700;
     letter-spacing: 2px;
     color: var(--color-text);
+  }
+
+  &__list {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+    margin: 1rem 0;
   }
 }
 </style>

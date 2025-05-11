@@ -3,10 +3,11 @@
     <div class="wrapper">
       <nav>
         <RouterLink to="/">Region</RouterLink>
-        <RouterLink to="/feature">Feature</RouterLink>
-        <RouterLink to="/place">Place</RouterLink>
-        <RouterLink to="/incident">Incident</RouterLink>
-        <RouterLink to="/discovery">Discovery</RouterLink>
+        <RouterLink to="/feature">Features</RouterLink>
+        <RouterLink to="/place">Places</RouterLink>
+        <RouterLink to="/incident">Incidents</RouterLink>
+        <RouterLink to="/mishap">Mishaps</RouterLink>
+        <RouterLink to="/discovery">Discoveries</RouterLink>
         <RouterLink to="/sources">Sources</RouterLink>
       </nav>
 

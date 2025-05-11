@@ -36,6 +36,11 @@ const router = createRouter({
       name: 'incident',
       component: () => import('../views/IncidentView.vue'),
     },
+    {
+      path: '/mishap',
+      name: 'mishap',
+      component: () => import('../views/MishapView.vue'),
+    },
   ],
 });
 

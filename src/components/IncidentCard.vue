@@ -20,6 +20,10 @@ const props = defineProps({
     type: String,
     required: true,
   },
+  forceEvent: {
+    type: String,
+    required: false,
+  },
 });
 
 const category: Ref<string> = ref('');
@@ -27,7 +31,7 @@ const subcategory: Ref<string> = ref('');
 const incident: Ref<string> = ref('');
 
 const generateIncident = () => {
-  const array = getIncident(props.table as IncidentCategory);
+  const array = getIncident(props.table as IncidentCategory, props.forceEvent);
   category.value = array.shift() ?? '';
   subcategory.value = array.shift() ?? '';
   incident.value = transformHTML(array.shift() ?? '');

@@ -60,19 +60,21 @@ export const INCIDENT_DUNGEON: string[] = [
   'mishap',
 ];
 
-export const getIncident = (category: IncidentCategory): string[] => {
-  const event = (() => {
-    switch (category) {
-      case IncidentCategoryEnum.SETTLEMENT:
-        return dieArray(INCIDENT_SETTLEMENT);
-      case IncidentCategoryEnum.ROAD:
-        return dieArray(INCIDENT_ROAD);
-      case IncidentCategoryEnum.WILDERNESS:
-        return dieArray(INCIDENT_WILDERNESS);
-      case IncidentCategoryEnum.DUNGEON:
-        return dieArray(INCIDENT_DUNGEON);
-    }
-  })();
+export const getIncident = (category: IncidentCategory, forceEvent = ''): string[] => {
+  const event =
+    forceEvent ||
+    (() => {
+      switch (category) {
+        case IncidentCategoryEnum.SETTLEMENT:
+          return dieArray(INCIDENT_SETTLEMENT);
+        case IncidentCategoryEnum.ROAD:
+          return dieArray(INCIDENT_ROAD);
+        case IncidentCategoryEnum.WILDERNESS:
+          return dieArray(INCIDENT_WILDERNESS);
+        case IncidentCategoryEnum.DUNGEON:
+          return dieArray(INCIDENT_DUNGEON);
+      }
+    })();
 
   switch (event) {
     case IncidentEnum.CREATURE: {

@@ -14,8 +14,15 @@
     <br />
     <br />
 
-    <FeatureCard :safety="safety"
-                 :key="uuid" />
+    <div class="feature__list">
+      <div v-for="n in 6"
+           :key="n + uuid">
+
+        <FeatureCard :safety="safety"
+                     :key="uuid" />
+      </div>
+    </div>
+
   </div>
 </template>
 
@@ -39,5 +46,12 @@ onMounted(() => generateFeature(safety.value));
 
 .feature {
   font-family: "Alegreya", serif;
+
+  &__list {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+    margin: 1rem 0;
+  }
 }
 </style>
